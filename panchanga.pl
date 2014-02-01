@@ -1,4 +1,4 @@
-#!/usr/local/bin/perl
+#!/usr/bin/perl
 # Version 3.20040205
 #{:::::::::::::::::::::::::::}
 # {addition in perl version}

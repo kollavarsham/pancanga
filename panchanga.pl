@@ -84,7 +84,7 @@ sub sqr {
 #{:::::::::::::::::::::::::::}
 # { mathematical constants }
 
-$pi  = atan2( 1, 1 ) * 4;
+$pi  = atan2( 1, 1 ) * 4;   # Math.PI constant
 # $pi2 = $pi * 2;
 $rad = 180 / $pi;
 
@@ -198,6 +198,7 @@ $counter = $variabledeclaration;
 #{:::::::::::::::::::::::::::}
 
 sub abs {
+    # Standard Math.abs function
     local ($x) = @_;
 
     if ( $x < 0 ) {
@@ -209,6 +210,7 @@ sub abs {
 }
 
 sub zero360 {
+    # Looks to be converting negative longitudes to their positive values on a 0-360 quadrant
     local ($longitude) = @_;
 
     #    $longitude = $longitude - trunc($longitude / 360) * 360;
@@ -221,12 +223,14 @@ sub zero360 {
 }
 
 sub tan {
+    # Standard Math.tan implementation
     local ($x) = @_;
 
     sin($x) / cos($x);
 }
 
 sub arcsin {    ###20010316
+    # Standard Math.asin implementation
     local ($x) = @_;
 
     if ( $eps < &abs( 1 - &sqr($x) ) ) {
@@ -241,6 +245,7 @@ sub arcsin {    ###20010316
 }
 
 sub three_relation {
+    # Celestial Helper threeRelation
     local ( $a, $b, $c ) = @_;
 
     if ( ( $a < $b ) && ( $b < $c ) ) {

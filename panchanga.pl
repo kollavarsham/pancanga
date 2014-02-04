@@ -13,7 +13,7 @@ $variabledeclaration = $true;
 $pancanga_as_sub = 1;
 
 sub numeric_p {
-    # Checks whether argument isNumeric
+    # Checks whether argument isNumeric - math.isNumber
     local ($data) = @_;
 
     if ( $data =~ /^-?\d*\.?\d*(e\d|e-\d)?\d*$/ ) {
@@ -25,7 +25,7 @@ sub numeric_p {
 }
 
 sub int_p {
-    # Checks whether argument is an integer
+    # Checks whether argument is an integer - math.isInt
     local ($data) = @_;
 
     if ( ( &numeric_p($data) && ( int($data) == $data ) ) ) {
@@ -37,14 +37,14 @@ sub int_p {
 }
 
 sub trunc {
-    # Truncates the number towards 0  for numbers - for non-numbers returns 0
+    # Truncates the number towards 0  for numbers - for non-numbers returns 0 - math.truncate
     local ($x) = @_;
 
     int($x);
 }
 
 sub floor {
-    # Standard floor implementation
+    # Standard floor implementation - math.floor
     local ($x) = @_;
 
     local ($y);
@@ -59,21 +59,21 @@ sub floor {
 }
 
 sub frac {
-    # Returns the fraction part of the real number
+    # Returns the fraction part of the real number - math.fractional
     local ($x) = @_;
 
     $x - int($x);
 }
 
 sub round {
-    # Standard round implementation
+    # Standard round implementation - math.round
     local ($x) = @_;
 
     &floor( $x + 0.5 );
 }
 
 sub sqr {
-    # Squaring function
+    # Squaring function - math.square
     local ($x) = @_;
 
     $x * $x;
@@ -210,7 +210,7 @@ sub abs {
 }
 
 sub zero360 {
-    # Looks to be converting negative longitudes to their positive values on a 0-360 quadrant
+    # Looks to be converting negative longitudes to their positive values on a 0-360 quadrant - geolocation.zero360
     local ($longitude) = @_;
 
     #    $longitude = $longitude - trunc($longitude / 360) * 360;
@@ -223,14 +223,14 @@ sub zero360 {
 }
 
 sub tan {
-    # Standard Math.tan implementation
+    # Standard Math.tan implementation - Math.tan
     local ($x) = @_;
 
     sin($x) / cos($x);
 }
 
 sub arcsin {    ###20010316
-    # Standard Math.asin implementation
+    # Standard Math.asin implementation - Math.asin
     local ($x) = @_;
 
     if ( $eps < &abs( 1 - &sqr($x) ) ) {
@@ -245,7 +245,7 @@ sub arcsin {    ###20010316
 }
 
 sub three_relation {
-    # Celestial Helper threeRelation
+    # celestial.threeRelation
     local ( $a, $b, $c ) = @_;
 
     if ( ( $a < $b ) && ( $b < $c ) ) {
@@ -263,6 +263,7 @@ sub three_relation {
 # { from one date to another date }
 
 sub next_date {
+    # calendar.nextDate
     local ( $year, $month, $day ) = @_;
 
     $day = $day + 1;

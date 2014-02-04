@@ -10,7 +10,7 @@ print "\n\nTesting the function \"" . $function_name . "\"\n\n";
 sub test {
     my ($function_params) = @_;
     my $function_call = $function_name . $function_params;
-    print $function_call . ": " . eval($function_call) . "\n";
+    print $function_call . ": [" . join(', ', map { "$_" } eval($function_call)) . "]\n";
 }
 
 &test("(23)");
@@ -41,8 +41,39 @@ sub test {
 &test("(0.9)");
 &test("(0)");
 
-print "\n\nTesting three_relation calls\n";
+print "\n\nTesting three_relation calls\n\n";
 print &three_relation(-1, 1, 3). "\n";
 print &three_relation(1, -1, -3). "\n";
 print &three_relation(1, 1, 1). "\n";
 print &three_relation(1, 5, -3). "\n";
+
+$function_name = "next_date";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(2013, 12, 31)");
+&test("(2012, 01, 31)");
+&test("(2013, 02, 28)");
+&test("(2012, 02, 28)");
+&test("(1950, 02, 01)");
+&test("(1997, 9, 30)");
+&test("(1752, 03, 24)");
+&test("(1752, 9, 2)");
+&test("(1997, 12, 30)");
+
+$function_name = "ModernDate_to_JulianDay";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(2013, 12, 30)");
+&test("(2013, 12, 31)");
+&test("(2012, 01, 31)");
+&test("(2013, 02, 28)");
+&test("(2012, 02, 28)");
+&test("(1950, 02, 01)");
+&test("(1997, 9, 30)");
+&test("(1752, 03, 24)");
+&test("(1752, 9, 2)");
+&test("(1997, 12, 30)");
+&test("(-1, 1, 31)");
+&test("(7, 1, 1)");
+&test("(0, 1, 1)");
+&test("(2001, 1, 1)");

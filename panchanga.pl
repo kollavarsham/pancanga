@@ -370,6 +370,13 @@ sub ModernDate_to_JulianDay {
 }
 
 sub Julian_in_England_p {    ###20030331
+    # Gregorian calendar was first introduced in most of Europe in 1582,
+    # but it wasn't adopted in England (and so in US and Canada) until 1752
+    #
+    # - http://www.timeanddate.com/calendar/julian-gregorian-switch.html
+    #
+    # This function returns true between
+    #      October 14th, 1582 and September 14th, 1752, both dates exclusive
     local ($JulianDay) = @_;
 
     if ( ( 2299160 < $JulianDay ) && ( $JulianDay <= 2361221 ) ) {

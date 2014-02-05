@@ -11,7 +11,7 @@ my $false = 0;
 
 my $variabledeclaration = $true;
 
-my $pancanga_as_sub = $false;
+my $pancanga_as_sub = $true;
 
 sub numeric_p {
     # Checks whether argument isNumeric - math.isNumber

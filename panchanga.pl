@@ -476,6 +476,7 @@ sub JulianDay_to_ModernDate {    ###20030331
 #}
 
 sub JulianDay_to_Ahargana {
+    # calendar.julianDayToAhargana
 
     # {from epoch midnight to given midnight}
     my ($julian_day) = @_;
@@ -484,12 +485,14 @@ sub JulianDay_to_Ahargana {
 }
 
 sub Ahargana_to_JulianDay {
+    # calendar.aharganaToJulianDay
     my ($ahar) = @_;
 
     588465.50 + $ahar;
 }
 
 sub Ahargana_to_Kali {
+    # TODO: wait until primary and secondary constants are set
     my ($ahar) = @_;
 
     # global variables: $YugaRotation{'sun'}, $YugaCivilDays
@@ -498,6 +501,7 @@ sub Ahargana_to_Kali {
 }
 
 sub Kali_to_Ahargana {
+    # TODO: wait until primary and secondary constants are set
     my ( $YearKali, $masa_num, $tithi_day ) = @_;
 
 # global variables: $YugaAdhimasa, $YugaRotation{'sun'}, $YugaKsayadina, $YugaTithi

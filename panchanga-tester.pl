@@ -168,3 +168,21 @@ print "\n\nTesting the function \"" . $function_name . "\"\n\n";
 &test("(2456351.5)");
 &test("(2455985.5)");
 &test("(2433313.5)");
+
+$function_name = "Ahargana_to_Kali";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(1710693)");
+&test("(1710694)");
+&test("(1710695)");
+&test("(1710696)");
+&test("(1772755)");
+&test("(1772756)");
+&test("(1772757)");
+&test("(1132992)");
+&test("(1868191)");
+&test("(1868192)");
+&test("(1867492)");
+&test("(1867886)");
+&test("(1867520)");
+&test("(1844848)");

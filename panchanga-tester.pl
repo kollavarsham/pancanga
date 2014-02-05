@@ -101,3 +101,15 @@ print "\n\nTesting the function \"" . $function_name . "\"\n\n";
 &test("(1752, 9, 13)");
 &test("(1752, 9, 14)");
 &test("(1752, 9, 15)");
+
+$function_name = "JulianDay_to_JulianDate";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(2299158.5)");
+&test("(2299159.5)");
+&test("(2299160.5)");
+&test("(2299161.5)");
+&test("(2361220.5)");
+&test("(2361221.5)");
+&test("(2361222.5)");
+&test("(1721457.5)");

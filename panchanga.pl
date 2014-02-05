@@ -1,20 +1,21 @@
 #!/usr/bin/perl
+use strict;
 use warnings;
 
 # Version 3.20040205
 #{:::::::::::::::::::::::::::}
 # {addition in perl version}
 
-$true  = 1;
-$false = 0;
+my $true  = 1;
+my $false = 0;
 
-$variabledeclaration = $true;
+my $variabledeclaration = $true;
 
-$pancanga_as_sub = 1;
+my $pancanga_as_sub = $false;
 
 sub numeric_p {
     # Checks whether argument isNumeric - math.isNumber
-    local ($data) = @_;
+    my ($data) = @_;
 
     if ( $data =~ /^-?\d*\.?\d*(e\d|e-\d)?\d*$/ ) {
         $true;
@@ -26,7 +27,7 @@ sub numeric_p {
 
 sub int_p {
     # Checks whether argument is an integer - math.isInt
-    local ($data) = @_;
+    my ($data) = @_;
 
     if ( ( &numeric_p($data) && ( int($data) == $data ) ) ) {
         $true;
@@ -38,16 +39,16 @@ sub int_p {
 
 sub trunc {
     # Truncates the number towards 0  for numbers - for non-numbers returns 0 - math.truncate
-    local ($x) = @_;
+    my ($x) = @_;
 
     int($x);
 }
 
 sub floor {
     # Standard floor implementation - math.floor
-    local ($x) = @_;
+    my ($x) = @_;
 
-    local ($y);
+    my ($y);
 
     $y = int($x);
     if ( $x < $y ) {
@@ -60,21 +61,21 @@ sub floor {
 
 sub frac {
     # Returns the fraction part of the real number - math.fractional
-    local ($x) = @_;
+    my ($x) = @_;
 
     $x - int($x);
 }
 
 sub round {
     # Standard round implementation - math.round
-    local ($x) = @_;
+    my ($x) = @_;
 
     &floor( $x + 0.5 );
 }
 
 sub sqr {
     # Squaring function - math.square
-    local ($x) = @_;
+    my ($x) = @_;
 
     $x * $x;
 }
@@ -84,122 +85,124 @@ sub sqr {
 #{:::::::::::::::::::::::::::}
 # { mathematical constants }
 
-$pi  = atan2( 1, 1 ) * 4;   # Math.PI constant
+my $pi  = atan2( 1, 1 ) * 4;   # Math.PI constant
 # $pi2 = $pi * 2;
-$rad = 180 / $pi;
+my $rad = 180 / $pi;
 
 # {for function arcsin}
-$eps = 1e-6;
+my $eps = 1e-6;
 
 # {for calcuration cut off}
 # in perl; precision changed
-$epsiron = 1e-8;
+my $epsiron = 1e-8;
 
 #{:::::::::::::::::::::::::::}
 # { settings }
 
-$with_bija_pf = $false;
+my $with_bija_pf = $false;
 
 #    $loc_lat       = 28.6;          # {Delhi}#20011114
-$Ujjaini_lat = 23.2;            # {Ujjaini}#20020304
-$loc_lat     = $Ujjaini_lat;    #20020304
-$Ujjaini_lon = 75.8;            # {Ujjaini}#20011114#20020320
-$loc_lon     = $Ujjaini_lon;    #20020304
-$yearmax     = 3000;
+my $Ujjaini_lat = 23.2;            # {Ujjaini}#20020304
+my $loc_lat     = $Ujjaini_lat;    #20020304
+my $Ujjaini_lon = 75.8;            # {Ujjaini}#20011114#20020320
+my $loc_lon     = $Ujjaini_lon;    #20020304
+my $yearmax     = 3000;
 
 #{:::::::::::::::::::::::::::}
 # {planets}
 #    type  planets       = (Star,
 #                           Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn,
 #                           Candrocca, Rahu);
-%planet_name = (
+my %planet_name = (
     'star',      'Star        ', 'sun',     'Sun         ',
     'moon',      'Moon        ', 'mercury', 'Mercury     ',
     'venus',     'Venus       ', 'mars',    'Mars        ',
     'jupiter',   'Jupiter     ', 'saturn',  'Saturn      ',
     'Candrocca', 'Candrocca   ', 'Rahu',    'Rahu        ',
 );
-$planet = $variabledeclaration;
+my $planet = $variabledeclaration;
 
 # (Star, Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Candrocca, Rahu);
-#%YugaRotation;
-#%PlanetRotation;
-#%PlanetSighra;
-#%PlanetMeanPosition;
-#%PlanetTruePosition;
-#%PlanetApogee;
-#%PlanetCircumm;
-#%PlanetCircums;
+my %YugaRotation;
+my %PlanetRotation;
+my %PlanetSighra;
+my %PlanetMeanPosition;
+my %PlanetTruePosition;
+my %PlanetApogee;
+my %PlanetCircumm;
+my %PlanetCircums;
 
 # key == $planet; value == real;
 
-$YugaCivilDays    = $variabledeclaration;
-$YugaSynodicMonth = $variabledeclaration;
-$YugaAdhimasa     = $variabledeclaration;
-$YugaTithi        = $variabledeclaration;
-$YugaKsayadina    = $variabledeclaration;
-$lagna            = $variabledeclaration;
+my $YugaCivilDays    = $variabledeclaration;
+my $YugaSynodicMonth = $variabledeclaration;
+my $YugaAdhimasa     = $variabledeclaration;
+my $YugaTithi        = $variabledeclaration;
+my $YugaKsayadina    = $variabledeclaration;
+my $lagna            = $variabledeclaration;
 
 #{:::::::::::::::::::::::::::}
 
-$back_clong_ahar  = -1;
-$back_nclong_ahar = -1;
-$back_clong       = -1;
-$back_nclong      = -1;
+my $back_clong_ahar  = -1;
+my $back_nclong_ahar = -1;
+my $back_clong       = -1;
+my $back_nclong      = -1;
 
 #    type  paksas                                =(suklapaksa, krsnapaksa);
-$year  = $variabledeclaration;
-$month = $variabledeclaration;
-$paksa = $variabledeclaration;
+my $year  = $variabledeclaration;
+my $month = $variabledeclaration;
+my $paksa = $variabledeclaration;
 
 # (suklapaksa, krsnapaksa);
-$day               = $variabledeclaration;              # {for ahargana}
-$ahar              = $variabledeclaration;              # {for ahargana}
-$hours             = $variabledeclaration;
-$minutes           = $variabledeclaration;
-$JulianDay         = $variabledeclaration;              # {for Julian days}
-$YearKali          = $variabledeclaration;
-$YearSaka          = $variabledeclaration;
-$YearVikrama       = $variabledeclaration;
-$masa_num          = $variabledeclaration;
-$saura_masa_num    = $variabledeclaration;              ###20000614
-$saura_masa_day    = $variabledeclaration;              ###20001231
-$tithi_day         = $variabledeclaration;
-$mslong            = $variabledeclaration;              # {solar position}
-$tslong            = $variabledeclaration;              # {solar position}
-$mllong            = $variabledeclaration;              # {lunar position}
-$tllong            = $variabledeclaration;              # {lunar position}
-$clong             = $variabledeclaration;
-$nclong            = $variabledeclaration;
-$tithi             = $variabledeclaration;
-$ftithi            = $variabledeclaration;
-$eqtime            = $variabledeclaration;              # {for equation of time}
-$sriseh            = $variabledeclaration;
-$srisem            = $variabledeclaration;
-$weekday_name      = $variabledeclaration;
-$sukla_krsna       = $variabledeclaration;
-$adhimasa          = $variabledeclaration;
-$masa              = $variabledeclaration;
-$naksatra          = $variabledeclaration;
+my $day               = $variabledeclaration;              # {for ahargana}
+my $ahar              = $variabledeclaration;              # {for ahargana}
+my $ahargana          = $variabledeclaration;
+my $hours             = $variabledeclaration;
+my $minutes           = $variabledeclaration;
+my $JulianDay         = $variabledeclaration;              # {for Julian days}
+my $YearKali          = $variabledeclaration;
+my $YearSaka          = $variabledeclaration;
+my $YearVikrama       = $variabledeclaration;
+my $masa_num          = $variabledeclaration;
+my $saura_masa        = $variabledeclaration;
+my $saura_masa_num    = $variabledeclaration;              ###20000614
+my $saura_masa_day    = $variabledeclaration;              ###20001231
+my $tithi_day         = $variabledeclaration;
+my $mslong            = $variabledeclaration;              # {solar position}
+my $tslong            = $variabledeclaration;              # {solar position}
+my $mllong            = $variabledeclaration;              # {lunar position}
+my $tllong            = $variabledeclaration;              # {lunar position}
+my $clong             = $variabledeclaration;
+my $nclong            = $variabledeclaration;
+my $tithi             = $variabledeclaration;
+my $ftithi            = $variabledeclaration;
+my $eqtime            = $variabledeclaration;              # {for equation of time}
+my $sriseh            = $variabledeclaration;
+my $srisem            = $variabledeclaration;
+my $weekday_name      = $variabledeclaration;
+my $sukla_krsna       = $variabledeclaration;
+my $adhimasa          = $variabledeclaration;
+my $masa              = $variabledeclaration;
+my $naksatra          = $variabledeclaration;
 # $Jovian_Year_north = $variabledeclaration;
 # $Jovian_Year_south = $variabledeclaration;
-$samkranti         = $variabledeclaration;              ###20010310
-$samkranti_year    = $variabledeclaration;              ###20010310
-$samkranti_month   = $variabledeclaration;              ###20010310
-$samkranti_day     = $variabledeclaration;              ###20010310
-$samkranti_hour    = $variabledeclaration;              ###20010310
-$samkranti_min     = $variabledeclaration;              ###20010310
-$ayanadeg          = $variabledeclaration;              ###20010313
-$ayanamin          = $variabledeclaration;              ###20010313
-$desantara         = ( $loc_lon - $Ujjaini_lon ) / 360; #20011114 time
+my $samkranti         = $variabledeclaration;              ###20010310
+my $samkranti_year    = $variabledeclaration;              ###20010310
+my $samkranti_month   = $variabledeclaration;              ###20010310
+my $samkranti_day     = $variabledeclaration;              ###20010310
+my $samkranti_hour    = $variabledeclaration;              ###20010310
+my $samkranti_min     = $variabledeclaration;              ###20010310
+my $ayanadeg          = $variabledeclaration;              ###20010313
+my $ayanamin          = $variabledeclaration;              ###20010313
+my $desantara         = ( $loc_lon - $Ujjaini_lon ) / 360; #20011114 time
 
-$counter = $variabledeclaration;
+my $counter = $variabledeclaration;
 
 #{:::::::::::::::::::::::::::}
 
 sub abs {
     # Standard Math.abs function
-    local ($x) = @_;
+    my ($x) = @_;
 
     if ( $x < 0 ) {
         $x * -1;
@@ -211,7 +214,7 @@ sub abs {
 
 sub zero360 {
     # Looks to be converting negative longitudes to their positive values on a 0-360 quadrant - geolocation.zero360
-    local ($longitude) = @_;
+    my ($longitude) = @_;
 
     #    $longitude = $longitude - trunc($longitude / 360) * 360;
     # in perl: trunc --> int
@@ -224,14 +227,14 @@ sub zero360 {
 
 sub tan {
     # Standard Math.tan implementation - Math.tan
-    local ($x) = @_;
+    my ($x) = @_;
 
     sin($x) / cos($x);
 }
 
 sub arcsin {    ###20010316
     # Standard Math.asin implementation - Math.asin
-    local ($x) = @_;
+    my ($x) = @_;
 
     if ( $eps < &abs( 1 - &sqr($x) ) ) {
         atan2( $x / sqrt( 1 - &sqr($x) ), 1 );
@@ -246,7 +249,7 @@ sub arcsin {    ###20010316
 
 sub three_relation {
     # celestial.threeRelation
-    local ( $a, $b, $c ) = @_;
+    my ( $a, $b, $c ) = @_;
 
     if ( ( $a < $b ) && ( $b < $c ) ) {
         1;
@@ -264,7 +267,7 @@ sub three_relation {
 
 sub next_date {
     # calendar.nextDate
-    local ( $year, $month, $day ) = @_;
+    my ( $year, $month, $day ) = @_;
 
     $day = $day + 1;
     if ( $month == 2 ) {
@@ -345,9 +348,9 @@ sub next_date {
 #   end;
 
 sub ModernDate_to_JulianDay {
-    local ( $year, $month, $day ) = @_;
+    my ( $year, $month, $day ) = @_;
 
-    local ($julian_day);
+    my ($julian_day);
 
     if ( $month < 3 ) {
         $year  = $year - 1;
@@ -377,7 +380,7 @@ sub Julian_in_England_p {    ###20030331
     #
     # This function returns true between
     #      October 14th, 1582 and September 14th, 1752, both dates exclusive
-    local ($JulianDay) = @_;
+    my ($JulianDay) = @_;
 
     if ( ( 2299160 < $JulianDay ) && ( $JulianDay <= 2361221 ) ) {
         $true;
@@ -390,10 +393,10 @@ sub Julian_in_England_p {    ###20030331
 
 sub JulianDay_to_JulianDate {    ###20040205
     # calendar.julianDayToJulianDate
-    local ($JulianDay) = @_;
+    my ($JulianDay) = @_;
 
-    local ( $j, $k, $l, $n, $i, $J, $I );
-    local ( $year, $month, $day );
+    my ( $j, $k, $l, $n, $i, $J, $I );
+    my ( $year, $month, $day );
 
     $j     = int($JulianDay) + 1402;
     $k     = int( ( $j - 1 ) / 1461 );
@@ -410,10 +413,10 @@ sub JulianDay_to_JulianDate {    ###20040205
 
 sub JulianDay_to_GregorianDate {    ###20030331
     # calendar.julianDayToGregorianDate
-    local ($JulianDay) = @_;
+    my ($JulianDay) = @_;
 
-    local ( $a, $b, $c, $e, $f, $g, $h );
-    local ( $year, $month, $day );    ###20010313
+    my ( $a, $b, $c, $e, $f, $g, $h );
+    my ( $year, $month, $day );    ###20010313
 
     $a = $JulianDay + 68569;
     $b = int( $a / 36524.25 );
@@ -431,9 +434,9 @@ sub JulianDay_to_GregorianDate {    ###20030331
 
 sub JulianDay_to_ModernDate {    ###20030331
     # calendar.julianDayToModernDate
-    local ($JulianDay) = @_;
+    my ($JulianDay) = @_;
 
-    local ( $year, $month, $day );
+    my ( $year, $month, $day );
 
     if ( $JulianDay < 2299239 ) {
         &JulianDay_to_JulianDate($JulianDay);
@@ -446,10 +449,10 @@ sub JulianDay_to_ModernDate {    ###20030331
 
 # killed ###20030331
 #sub JulianDay_to_ModernDate {
-#    local($JulianDay) = @_;
+#    my( $JulianDay) = @_;
 #
-#    local($a, $b, $c, $e, $f, $g, $h);
-#    local($year, $month, $day); ###20010313
+#    my( $a, $b, $c, $e, $f, $g, $h);
+#    my( $year, $month, $day); ###20010313
 #
 #    if ($JulianDay < 2299239) {
 #        $a = int($JulianDay) + 68607;
@@ -475,19 +478,19 @@ sub JulianDay_to_ModernDate {    ###20030331
 sub JulianDay_to_Ahargana {
 
     # {from epoch midnight to given midnight}
-    local ($julian_day) = @_;
+    my ($julian_day) = @_;
 
     $julian_day - 588465.50;
 }
 
 sub Ahargana_to_JulianDay {
-    local ($ahar) = @_;
+    my ($ahar) = @_;
 
     588465.50 + $ahar;
 }
 
 sub Ahargana_to_Kali {
-    local ($ahar) = @_;
+    my ($ahar) = @_;
 
     # global variables: $YugaRotation{'sun'}, $YugaCivilDays
 
@@ -495,11 +498,11 @@ sub Ahargana_to_Kali {
 }
 
 sub Kali_to_Ahargana {
-    local ( $YearKali, $masa_num, $tithi_day ) = @_;
+    my ( $YearKali, $masa_num, $tithi_day ) = @_;
 
 # global variables: $YugaAdhimasa, $YugaRotation{'sun'}, $YugaKsayadina, $YugaTithi
 
-    local ( $sm, $cm, $adhim, $avama, $tithi );
+    my ( $sm, $cm, $adhim, $avama, $tithi );
 
     $sm = $YearKali;
     $sm = $sm * 12 + $masa_num;    # {expired saura masas}
@@ -514,13 +517,13 @@ sub Kali_to_Ahargana {
 }
 
 sub Kali_to_Saka {
-    local ($YearKali) = @_;
+    my ($YearKali) = @_;
 
     $YearKali - 3179;
 }
 
 sub Saka_to_Kali {
-    local ($YearSaka) = @_;
+    my ($YearSaka) = @_;
 
     $YearSaka + 3179;
 }
@@ -529,7 +532,7 @@ sub Saka_to_Kali {
 # { condition check }
 
 sub adhimasa_p {
-    local ( $clong, $nclong ) = @_;
+    my ( $clong, $nclong ) = @_;
 
     if ( &trunc( $clong / 30 ) == &trunc( $nclong / 30 ) ) {
         $true;
@@ -543,9 +546,9 @@ sub adhimasa_p {
 #  { INPUT }
 
 sub read_real {
-    local ( $message, $min, $max ) = @_;
+    my ( $message, $min, $max ) = @_;
 
-    local ($number);
+    my ($number);
 
     print $message;
     chop( $number = <> );
@@ -563,9 +566,9 @@ sub read_real {
 }
 
 sub read_integer {
-    local ( $message, $min, $max ) = @_;
+    my ( $message, $min, $max ) = @_;
 
-    local ($number);
+    my ($number);
 
     print $message;
     chop( $number = <> );
@@ -651,8 +654,8 @@ sub read_date {
 
     # global variables: $yearmax
 
-    local ( $year, $month, $day );
-    local ($inputdata);
+    my ( $year, $month, $day );
+    my ($inputdata);
 
     print " Year  Month  Day = ";
     chop( $inputdata = <> );
@@ -693,8 +696,8 @@ sub read_date {
 
 sub read_time {
 
-    local ( $hours, $minutes );
-    local ($inputdata);
+    my ( $hours, $minutes );
+    my ($inputdata);
 
     print " Time in hours and minutes = ";
     chop( $inputdata = <> );
@@ -716,9 +719,9 @@ sub read_time {
 }
 
 sub read_char {
-    local ($message) = @_;
+    my ($message) = @_;
 
-    local ($character);
+    my ($character);
 
     print $message;
     chop( $character = <> );
@@ -731,14 +734,14 @@ sub read_char {
 
 sub read_indian_date {
 
-    local ( $saka_year, $vikrama_year, $masa_num, $paksa, $tithi_day );
-    local ($paksa_ans);
+    my ( $saka_year, $vikrama_year, $masa_num, $paksa, $tithi_day );
+    my ($paksa_ans);
 
     print " 0(11).Caitra    1( 0).Vaisakha   2( 1).Jyaistha 3( 2).Asadha\n";
     print " 4( 3).Sravana   5( 4).Bhadrapada 6( 5).Asvina   7( 6).Karttika\n";
     print " 8( 7).Margasira 9( 8).Pausa     10( 9).Magha   11(10).Phalguna\n";
 
-    $year_ans = &read_char("Saka years or Vikrama years? ...S/V      ");
+    my $year_ans = &read_char("Saka years or Vikrama years? ...S/V      ");
     while ( $year_ans !~ /[SV]/ ) {
         $year_ans = &read_char("Saka years or Vikrama years? ...S/V      ");
     }
@@ -772,9 +775,9 @@ sub read_indian_date {
 #{:::::::::::::::::::::::::::}
 # { get names }
 sub get_weekday_name {
-    local ($JulianDay) = @_;
+    my ($JulianDay) = @_;
 
-    %weekday_name = (
+    my %weekday_name = (
         0, 'Monday', 1, 'Tuesday',  2, 'Wednesday', 3, 'Thursday',
         4, 'Friday', 5, 'Saturday', 6, 'Sunday'
     );
@@ -783,13 +786,13 @@ sub get_weekday_name {
 }
 
 sub get_sukla_krsna {
-    local ($paksa) = @_;
+    my ($paksa) = @_;
 
     $paksa;
 }
 
 sub get_adhimasa {
-    local ( $clong, $nclong ) = @_;
+    my ( $clong, $nclong ) = @_;
 
     if ( &adhimasa_p( $clong, $nclong ) ) {
         "Adhika-";
@@ -800,9 +803,9 @@ sub get_adhimasa {
 }
 
 sub get_masa_name {
-    local ($number) = @_;
+    my ($number) = @_;
 
-    %masa_name = (
+    my %masa_name = (
         0, 'Caitra    ', 1,  'Vaisakha  ', 2,  'Jyaistha  ',
         3, 'Asadha    ', 4,  'Sravana   ', 5,  'Bhadrapada',
         6, 'Asvina    ', 7,  'Karttika  ', 8,  'Margasirsa',
@@ -813,7 +816,7 @@ sub get_masa_name {
 }
 
 sub get_saura_masa_name {    ###20000613
-    local ($number) = @_;
+    my ($number) = @_;
 
 #    %saura_masa_name = (
 #    0, 'Mesa   ', 1, 'Vrsa   ', 2,  'Mithuna', 3,  'Karkata',
@@ -821,7 +824,7 @@ sub get_saura_masa_name {    ###20000613
 #    8, 'Dhanus ', 9, 'Makara ', 10, 'Kumbha ', 11, 'Mina   '
 #    );
 #    
-    %saura_masa_name = (
+    my %saura_masa_name = (
     0, 'Medam     ', 1, 'Idavam    ', 2,  'Mithunam  ', 3,  'Karkitakam',
     4, 'Chingam   ', 5, 'Kanni     ', 6,  'Thulam    ', 7,  'Vrischikam',
     8, 'Dhanu     ', 9, 'Makaram   ', 10, 'Kumbham   ', 11, 'Meenam    '
@@ -831,15 +834,15 @@ sub get_saura_masa_name {    ###20000613
 }
 
 sub get_karana_name {
-    local ($tithi) = @_;
+    my ($tithi) = @_;
 
-    %karana_name = (
+    my %karana_name = (
         0, 'kiMstughna', 1,  'bava      ', 2, 'bAlava    ',
         3, 'kaulava   ', 4,  'taitila   ', 5, 'gara      ',
         6, 'vaNij     ', 7,  'viSTi     ', 8, 'zakuni    ',
         9, 'catuSpada ', 10, 'nAga      '
     );
-    local ($karana);
+    my ($karana);
 
     $karana = &trunc( 2 * $tithi );
     if ( $karana == 0 ) {
@@ -866,9 +869,9 @@ sub get_karana_name {
 }
 
 sub get_yoga_name {
-    local ( $tslong, $tllong ) = @_;
+    my ( $tslong, $tllong ) = @_;
 
-    %yoga_name = (
+    my %yoga_name = (
         0,  'viSkambha',
         1,  'prIti',
         2,  'AyuSmat',
@@ -898,7 +901,7 @@ sub get_yoga_name {
         26, 'vaidhRti',
         27, 'viSkambha'
     );
-    local ( $yoga1, $yoga );
+    my ( $yoga1, $yoga );
 
     $yoga1 = &zero360( $tslong + $tllong );
     $yoga  = &trunc( $yoga1 * 27 / 360 );
@@ -906,7 +909,7 @@ sub get_yoga_name {
 }
 
 sub get_naksatra_name {
-    local ($tllong) = @_;
+    my ($tllong) = @_;
 
 #    %naksatra_name = (
 #    0,  'Asvini',       1,  'Bharani',      2,  'Krttika',
@@ -921,7 +924,7 @@ sub get_naksatra_name {
 #    27, 'Asvini'
 #    );
 #    
-    %naksatra_name = (
+    my %naksatra_name = (
     0,  'Ashwathi',     1,  'Bharani',      2,  'Karthika',
     3,  'Rohini',       4,  'Makeeryam',    5,  'Thiruvathira',
     6,  'Punartham',    7,  'Pooyam',       8,  'Aayilyam',
@@ -938,9 +941,9 @@ sub get_naksatra_name {
 }
 
 sub get_Jovian_Year_name {
-    local ($YearKali) = @_;
+    my ($YearKali) = @_;
 
-    %Jovian_Year_name = (
+    my %Jovian_Year_name = (
         0,  'kSaya(60)',       1,  'prabhava(1)',
         2,  'vibhava(2)',      3,  'sukha(3)',
         4,  'pramoda(4)',      5,  'prajApati(5)',
@@ -972,7 +975,7 @@ sub get_Jovian_Year_name {
         56, 'dundubhi(56)',    57, 'rudhirodgArin(57)',
         58, 'raktAkSa(58)',    59, 'krodhana(59)'
     );
-    local ($Jovian_Year);
+    my ($Jovian_Year);
 
     $Jovian_Year =
       ( &trunc( ( $YearKali * 211 - 108 ) / 18000 ) + $YearKali + 27 ) % 60;
@@ -980,9 +983,9 @@ sub get_Jovian_Year_name {
 }
 
 sub get_Jovian_Year_name_south {
-    local ($YearKali) = @_;
+    my ($YearKali) = @_;
 
-    local ($Jovian_Year);
+    my ($Jovian_Year);
 
     if ( $YearKali < 4009 ) {
         $Jovian_Year = $YearKali;
@@ -1097,7 +1100,7 @@ sub set_planetary_constant {
 }
 
 sub get_mean_long {
-    local ( $ahar, $rotation ) = @_;
+    my ( $ahar, $rotation ) = @_;
 
     # definition
 
@@ -1132,7 +1135,7 @@ sub get_mean_long {
 }
 
 sub declination {
-    local ($long) = @_;
+    my ($long) = @_;
 
     &arcsin( sin( $long / $rad ) * sin( 24 / $rad ) ) * $rad;
 }
@@ -1140,9 +1143,9 @@ sub declination {
 sub get_daylight_equation {
 
     # global variables: $ahar, $YugaRotation{'sun'}
-    local ( $year, $loc_lat ) = @_;
+    my ( $year, $loc_lat ) = @_;
 
-    local ( $mslong, $samslong, $sdecl, $x );
+    my ( $mslong, $samslong, $sdecl, $x );
 
     $mslong = &get_mean_long( $ahar, $YugaRotation{'sun'} );
 
@@ -1169,9 +1172,9 @@ sub get_daylight_equation {
 }
 
 sub get_sun_rise_time {
-    local ($eqtime) = @_;
+    my ($eqtime) = @_;
 
-    local ( $sriseh, $srisem );
+    my ( $sriseh, $srisem );
 
     $sriseh = &trunc( ( 0.25 - $eqtime ) * 24 );
     $srisem = &trunc( 60 * &frac( ( 0.25 - $eqtime ) * 24 ) );
@@ -1179,9 +1182,9 @@ sub get_sun_rise_time {
 }
 
 sub get_ayana_amsa {    ###20010313
-    local ($ahar) = @_;
+    my ($ahar) = @_;
 
-    local ( $ayanadeg, $ayanamin );
+    my ( $ayanadeg, $ayanamin );
 
     $ayanadeg =
       &trunc( ( 54 * 4320000 / $YugaCivilDays / 3600 ) * ( $ahar - 1314930 ) );
@@ -1194,15 +1197,15 @@ sub get_ayana_amsa {    ###20010313
 }
 
 sub get_manda_equation {
-    local ( $argument, $planet ) = @_;
+    my ( $argument, $planet ) = @_;
 
     &arcsin( $PlanetCircumm{$planet} / 360 * sin( $argument / $rad ) ) * $rad;
 }
 
 sub get_sighra_equation {
-    local ( $anomaly, $planet ) = @_;
+    my ( $anomaly, $planet ) = @_;
 
-    local ( $bhuja, $koti, $karna );
+    my ( $bhuja, $koti, $karna );
 
     $bhuja = $PlanetCircums{$planet} / 360 * sin( $anomaly / $rad ) * $rad;
     $koti  = $PlanetCircums{$planet} / 360 * cos( $anomaly / $rad ) * $rad;
@@ -1211,12 +1214,12 @@ sub get_sighra_equation {
 }
 
 sub get_true_long {
-    local ( $ahar, $mslong, $planet ) = @_;
+    my ( $ahar, $mslong, $planet ) = @_;
 
-    local ( $mean_long1, $mean_long2, $mean_long3 );
-    local ($argument);
-    local ( $anomaly1, $anomaly2 );
-    local ( $equ1, $equ2, $equ3, $equ4, $equ5 );
+    my ( $mean_long1, $mean_long2, $mean_long3 );
+    my ($argument);
+    my ( $anomaly1, $anomaly2 );
+    my ( $equ1, $equ2, $equ3, $equ4, $equ5 );
 
     # {first sighra correction}
     if (   ( $planet eq 'mercury' )
@@ -1264,9 +1267,9 @@ sub get_true_long {
 }
 
 sub right_ascension {
-    local ( $long, $decl ) = @_;
+    my ( $long, $decl ) = @_;
 
-    local ( $DayRadius, $Radius90, $x, $ra );
+    my ( $DayRadius, $Radius90, $x, $ra );
 
     $DayRadius = cos( $decl / $rad );
     $Radius90  = cos( 24 / $rad );
@@ -1288,9 +1291,9 @@ sub right_ascension {
 }
 
 sub ascendant {
-    local ( $hrasc, $loc_lat ) = @_;
+    my ( $hrasc, $loc_lat ) = @_;
 
-    local ( $asc, $x, $y );    # {Modern method, see North, p.50}
+    my ( $asc, $x, $y );    # {Modern method, see North, p.50}
 
     $x = sin( $hrasc / $rad );
     $y =
@@ -1317,9 +1320,9 @@ sub ascendant {
 }
 
 sub get_tithi {
-    local ( $tllong, $tslong ) = @_;
+    my ( $tllong, $tslong ) = @_;
 
-    local ($elong);
+    my ($elong);
 
     $elong = $tllong - $tslong;
     $elong = &zero360($elong);
@@ -1328,9 +1331,9 @@ sub get_tithi {
 }
 
 sub get_tithi_set {
-    local ($tithi) = @_;
+    my ($tithi) = @_;
 
-    local ( $tithi_day, $ftithi );
+    my ( $tithi_day, $ftithi );
 
     $tithi_day = &trunc($tithi) + 1;
     $ftithi    = &frac($tithi);
@@ -1339,9 +1342,9 @@ sub get_tithi_set {
 }
 
 sub set_sukla_krsna {
-    local ($tithi_day) = @_;
+    my ($tithi_day) = @_;
 
-    local ( $sukla_krsna, $paksa );
+    my ( $sukla_krsna, $paksa );
 
     if ( 15 < $tithi_day ) {
         $tithi_day = $tithi_day - 15;
@@ -1356,20 +1359,20 @@ sub set_sukla_krsna {
 }
 
 sub get_tslong {
-    local ($ahar) = @_;
+    my ($ahar) = @_;
 
-    local ($mslong);
+    my ($mslong);
 
     $mslong = &get_mean_long( $ahar, $YugaRotation{'sun'} );
-    $get_tslong =
+    my $get_tslong =
       &zero360( $mslong -
           &get_manda_equation( ( $mslong - $PlanetApogee{'sun'} ), 'sun' ) );
 }
 
 sub get_tllong {
-    local ($ahar) = @_;
+    my ($ahar) = @_;
 
-    local ( $mllong, $apogee );
+    my ( $mllong, $apogee );
 
     $mllong = &get_mean_long( $ahar, $YugaRotation{'moon'} );
     $apogee = &get_mean_long( $ahar, $YugaRotation{'Candrocca'} ) + 90;
@@ -1377,9 +1380,9 @@ sub get_tllong {
 }
 
 sub get_elong {
-    local ($ahar) = @_;
+    my ($ahar) = @_;
 
-    local ($elong);
+    my ($elong);
 
     $elong = &abs( &get_tllong($ahar) - &get_tslong($ahar) );
     if ( 180 < $elong ) {
@@ -1389,9 +1392,9 @@ sub get_elong {
 }
 
 sub find_conj {
-    local ( $leftx, $lefty, $rightx, $righty ) = @_;
+    my ( $leftx, $lefty, $rightx, $righty ) = @_;
 
-    local ( $width, $centrex, $centrey, $relation );
+    my ( $width, $centrex, $centrey, $relation );
 
 #{$ifdef conj_debug}
 #    printf "lx=%15s rx=%15s ly=%15s ry=%15s\n", $leftx, $rightx, $lefty, $righty;
@@ -1427,16 +1430,16 @@ sub find_conj {
 }
 
 sub get_conj {
-    local ($ahar) = @_;
+    my ($ahar) = @_;
 
     &find_conj( $ahar - 2, &get_elong( $ahar - 2 ),
         $ahar + 2, &get_elong( $ahar + 2 ) );
 }
 
 sub get_clong {
-    local ( $ahar, $tithi ) = @_;
+    my ( $ahar, $tithi ) = @_;
 
-    local ($new_new);
+    my ($new_new);
 
     $new_new =
       $YugaCivilDays / ( $YugaRotation{'moon'} - $YugaRotation{'sun'} );
@@ -1458,9 +1461,9 @@ sub get_clong {
 }
 
 sub get_nclong {
-    local ( $ahar, $tithi ) = @_;
+    my ( $ahar, $tithi ) = @_;
 
-    local ($new_new);
+    my ($new_new);
 
     $new_new =
       $YugaCivilDays / ( $YugaRotation{'moon'} - $YugaRotation{'sun'} );
@@ -1477,9 +1480,9 @@ sub get_nclong {
 }
 
 sub get_masa_num {
-    local ( $tslong, $clong ) = @_;
+    my ( $tslong, $clong ) = @_;
 
-    local ($masa_num);
+    my ($masa_num);
 
     $masa_num = ( &trunc( $tslong / 30 ) ) % 12;
     if ( ( &trunc( $clong / 30 ) % 12 ) == $masa_num ) {
@@ -1493,9 +1496,9 @@ sub get_masa_num {
 #{ saura_masa calculations }
 
 sub find_samkranti {    #find out samkranti in ahargana #20010311
-    local ( $o_ahar, $n_ahar ) = @_;
+    my ( $o_ahar, $n_ahar ) = @_;
 
-    local ( $o_tslong, $n_tslong, $c_ahar, $c_tslong, $width );
+    my ( $o_tslong, $n_tslong, $c_ahar, $c_tslong, $width );
 
     $o_tslong = &get_tslong($o_ahar);
     $n_tslong = &get_tslong($n_ahar);
@@ -1524,7 +1527,7 @@ sub find_samkranti {    #find out samkranti in ahargana #20010311
 }
 
 sub set_samkranti {    ###20010311
-    local ($ahar) = @_;
+    my ($ahar) = @_;
 
     #    if (&abs($ahar - $samkranti) < 1) { #20020308
     #    } else { #20020308
@@ -1546,8 +1549,8 @@ sub today_saura_masa_first_p {    ###20001231
     # ==
     # at 0:00 before 30x, at 24:00 after 30x
 
-    local ($ahar) = @_;
-    local ( $tslong_today, $tslong_tomorrow );
+    my ($ahar) = @_;
+    my ( $tslong_today, $tslong_tomorrow );
 
     $tslong_today    = &get_tslong( $ahar - $desantara );        #20011118
     $tslong_tomorrow = &get_tslong( $ahar - $desantara + 1 );    #20011118
@@ -1569,8 +1572,8 @@ sub get_saura_masa_day {    ###20001231
 
     # If today is the first day then 1
     # Otherwies yesterday's + 1
-    local ($ahar) = @_;
-    local ( $tslong_tomorrow, $month, $day );
+    my ($ahar) = @_;
+    my ( $tslong_tomorrow, $month, $day );
 
     $ahar = &trunc($ahar);
     if ( &today_saura_masa_first_p($ahar) ) {
@@ -1699,7 +1702,7 @@ sub try_calculations {
 
 sub horoscope_calculation {
 
-    local ( $saslong, $sdecl, $srasc, $time_degree, $hrasc, $ascend );
+    my ( $saslong, $sdecl, $srasc, $time_degree, $hrasc, $ascend );
 
     &set_primary_constant;
     &add_bija;
@@ -1730,8 +1733,8 @@ sub horoscope_calculation {
 }
 
 sub tithi_naksatra_karana_yoga_at_any_given_ahar {          ###20011106
-    local ($ahar) = @_;
-    local ( $tithi_day, $ftithi, $naksatra, $karana, $yoga );
+    my ($ahar) = @_;
+    my ( $tithi_day, $ftithi, $naksatra, $karana, $yoga );
 
     &set_primary_constant;
     &add_bija;
@@ -1762,8 +1765,8 @@ sub tithi_naksatra_karana_yoga_at_any_given_ahar {          ###20011106
 }
 
 sub wechseln_calc_write {    ###20011109
-    local ( $tithi_day, $ftithi, $naksatra, $karana, $yoga );
-    local ( $otithi_day, $onaksatra, $okarana, $oyoga );
+    my ( $tithi_day, $ftithi, $naksatra, $karana, $yoga );
+    my ( $otithi_day, $onaksatra, $okarana, $oyoga );
 
     # {at 0 o'clock}
 
@@ -1885,9 +1888,9 @@ sub write_settings {
 }
 
 sub write_sig_deg_min_sec {
-    local ($decimal) = @_;
+    my ($decimal) = @_;
 
-    local ( $sig, $deg, $min, $sec, $remain );
+    my ( $sig, $deg, $min, $sec, $remain );
 
     $decimal = &zero360($decimal);
     $sig     = &trunc( $decimal / 30 );
@@ -1902,7 +1905,7 @@ sub write_sig_deg_min_sec {
 
 sub write_nirayana_longitude {
 
-    local ($counter);
+    my ($counter);
 
     $counter = -1;
     for (
@@ -2060,26 +2063,26 @@ sub write_horoscope {
 
 #{:::::::::::::::::::::::::::}
 # {programme choice}
-$prog_mode_message =
+my $prog_mode_message =
 
 #              "<T>ry, <L>ist, <V>erbose, <H>oroscope, <S>etting, <E>nd: "; #20010416
   "<T>ry, <L>ist, <V>erbose, <S>etting, <E>nd: ";
-$prog_mode_message_cont =
+my $prog_mode_message_cont =
 
 #              "<Return>:continue, <T>ry, <L>ist, <V>erbose, <H>oroscope, <S>etting, <E>nd: "; #20010416
   "<Return>:continue, <T>ry, <L>ist, <V>erbose, <S>etting, <E>nd: ";
-$prog_setting_mode_message =
+my $prog_setting_mode_message =
   "<L>atitude, l<O>ngitude, <B>ija, <E>xit from Setting: ";    #20020304
 
 # type  prog_modes =
 # (continue, try, list, verbose, wechseln, horoscope, setting, latitude, longitude, bija, prog_end); #20020304
 
-$prog_mode = $variabledeclaration;
+my $prog_mode = $variabledeclaration;
 
 sub set_prog_mode {
-    local ($message) = @_;
+    my ($message) = @_;
 
-    local ($ans);
+    my ($ans);
 
     $ans = &read_char($message);
     if ( $ans eq 'T' ) {
@@ -2109,9 +2112,9 @@ sub set_prog_mode {
 }
 
 sub set_prog_setting_mode {
-    local ($message) = @_;
+    my ($message) = @_;
 
-    local ($ans);
+    my ($ans);
 
     $ans = &read_char($message);
     if ( $ans eq 'L' ) {
@@ -2140,7 +2143,7 @@ sub cache_variable_clear {
 
 #{:::::::::::::::::::::::::::}
 #{main routine}
-if ( defined($pancanga_as_sub) ) {
+if ( $pancanga_as_sub ) {
     1;
 }
 else {

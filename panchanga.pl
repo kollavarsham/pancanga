@@ -389,6 +389,7 @@ sub Julian_in_England_p {    ###20030331
 }
 
 sub JulianDay_to_JulianDate {    ###20040205
+    # calendar.julianDayToJulianDate
     local ($JulianDay) = @_;
 
     local ( $j, $k, $l, $n, $i, $J, $I );
@@ -408,6 +409,7 @@ sub JulianDay_to_JulianDate {    ###20040205
 }
 
 sub JulianDay_to_GregorianDate {    ###20030331
+    # calendar.julianDayToGregorianDate
     local ($JulianDay) = @_;
 
     local ( $a, $b, $c, $e, $f, $g, $h );
@@ -428,6 +430,7 @@ sub JulianDay_to_GregorianDate {    ###20030331
 }
 
 sub JulianDay_to_ModernDate {    ###20030331
+    # calendar.julianDayToModernDate
     local ($JulianDay) = @_;
 
     local ( $year, $month, $day );

@@ -113,3 +113,22 @@ print "\n\nTesting the function \"" . $function_name . "\"\n\n";
 &test("(2361221.5)");
 &test("(2361222.5)");
 &test("(1721457.5)");
+
+$function_name = "JulianDay_to_GregorianDate";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(2299158.5)");
+&test("(2299159.5)");
+&test("(2299160.5)");
+&test("(2299161.5)");
+&test("(2361220.5)");
+&test("(2361221.5)");
+&test("(2361222.5)");
+&test("(1721457.5)");
+&test("(2456656.5)");
+&test("(2456657.5)");
+&test("(2455957.5)");
+&test("(2456351.5)");
+&test("(2455985.5)");
+&test("(2433313.5)");
+    

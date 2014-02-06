@@ -779,6 +779,7 @@ sub read_indian_date {
 #{:::::::::::::::::::::::::::}
 # { get names }
 sub get_weekday_name {
+    # calendar.julianDayToWeekday
     my ($JulianDay) = @_;
 
     my %weekday_name = (
@@ -790,6 +791,7 @@ sub get_weekday_name {
 }
 
 sub get_sukla_krsna {
+    # we don't really need this function
     my ($paksa) = @_;
 
     $paksa;

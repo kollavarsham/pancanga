@@ -348,6 +348,7 @@ sub next_date {
 #   end;
 
 sub ModernDate_to_JulianDay {
+    # calendar.gregorianDateToJulianDay
     my ( $year, $month, $day ) = @_;
 
     my ($julian_day);
@@ -373,6 +374,7 @@ sub ModernDate_to_JulianDay {
 }
 
 sub Julian_in_England_p {    ###20030331
+    # calendar.julianInEngland
     # Gregorian calendar was first introduced in most of Europe in 1582,
     # but it wasn't adopted in England (and so in US and Canada) until 1752
     #
@@ -1005,6 +1007,7 @@ sub get_Jovian_Year_name_south {
 #{:::::::::::::::::::::::::::}
 
 sub set_primary_constant {
+    # celestial.setPrimaryConstants
     $YugaRotation{'star'}      = 1582237800;    ###20020331
     $YugaRotation{'sun'}       = 4320000;
     $YugaRotation{'moon'}      = 57753336;
@@ -1018,7 +1021,7 @@ sub set_primary_constant {
 }
 
 sub add_bija {
-
+    # celestial.applyBija
     # global variables: $with_bija_pf
     if ($with_bija_pf) {
         $YugaRotation{'star'}    = $YugaRotation{'star'} + 28;       ###20020331
@@ -1035,6 +1038,7 @@ sub add_bija {
 }
 
 sub set_secondary_constant {
+    # celestial.setSecondaryConstants
     $YugaCivilDays    = $YugaRotation{'star'} - $YugaRotation{'sun'};
     $YugaSynodicMonth = $YugaRotation{'moon'} - $YugaRotation{'sun'};
     $YugaAdhimasa     = $YugaSynodicMonth - 12 * $YugaRotation{'sun'};
@@ -1043,6 +1047,7 @@ sub set_secondary_constant {
 }
 
 sub set_planetary_constant {
+    # celestial.setPlanetaryConstants
 
     $PlanetRotation{'star'} = 0;
     $PlanetSighra{'star'}   = 0;
@@ -1147,6 +1152,7 @@ sub declination {
 }
 
 sub get_daylight_equation {
+    # celestial.getDaylightEquation
 
     # global variables: $ahar, $YugaRotation{'sun'}
     my ( $year, $loc_lat ) = @_;
@@ -1188,6 +1194,10 @@ sub get_sun_rise_time {
 }
 
 sub get_ayana_amsa {    ###20010313
+    # celestial.setAyanamsa
+    # Good reads:
+    # https://en.wikipedia.org/wiki/Ayanamsa
+    # http://pidaparthypanchangam.com/?m=201306&paged=2
     my ($ahar) = @_;
 
     my ( $ayanadeg, $ayanamin );
@@ -1599,6 +1609,7 @@ sub get_saura_masa_day {    ###20001231
 #{ set of calculations }
 
 sub calculations {
+    # kollavarsham.calculations
 
     &set_primary_constant;
     &add_bija;

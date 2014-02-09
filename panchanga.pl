@@ -1111,6 +1111,7 @@ sub set_planetary_constant {
 }
 
 sub get_mean_long {
+    # celestial.getMeanLongitude
     my ( $ahar, $rotation ) = @_;
 
     # definition

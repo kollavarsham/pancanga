@@ -1147,8 +1147,9 @@ sub get_mean_long {
 }
 
 sub declination {
+    # celestial.declination
     my ($long) = @_;
-
+    
     &arcsin( sin( $long / $rad ) * sin( 24 / $rad ) ) * $rad;
 }
 
@@ -1185,6 +1186,7 @@ sub get_daylight_equation {
 }
 
 sub get_sun_rise_time {
+    # celestial.setSunriseTime
     my ($eqtime) = @_;
 
     my ( $sriseh, $srisem );
@@ -1214,6 +1216,7 @@ sub get_ayana_amsa {    ###20010313
 }
 
 sub get_manda_equation {
+    # celestial.getMandaEquation
     my ( $argument, $planet ) = @_;
 
     &arcsin( $PlanetCircumm{$planet} / 360 * sin( $argument / $rad ) ) * $rad;
@@ -1337,6 +1340,7 @@ sub ascendant {
 }
 
 sub get_tithi {
+    # celestial.getTithi
     my ( $tllong, $tslong ) = @_;
 
     my ($elong);
@@ -1348,6 +1352,7 @@ sub get_tithi {
 }
 
 sub get_tithi_set {
+    # celestial.setTithiSet
     my ($tithi) = @_;
 
     my ( $tithi_day, $ftithi );
@@ -1359,6 +1364,7 @@ sub get_tithi_set {
 }
 
 sub set_sukla_krsna {
+    # celestial.setSuklaKrsna
     my ($tithi_day) = @_;
 
     my ( $sukla_krsna, $paksa );
@@ -1376,6 +1382,7 @@ sub set_sukla_krsna {
 }
 
 sub get_tslong {
+    # celestial.getTslong
     my ($ahar) = @_;
 
     my ($mslong);
@@ -1387,6 +1394,7 @@ sub get_tslong {
 }
 
 sub get_tllong {
+    # celestial.getTllong
     my ($ahar) = @_;
 
     my ( $mllong, $apogee );
@@ -1397,6 +1405,7 @@ sub get_tllong {
 }
 
 sub get_elong {
+    # celestial.getElong
     my ($ahar) = @_;
 
     my ($elong);
@@ -1409,6 +1418,7 @@ sub get_elong {
 }
 
 sub find_conj {
+    # celestial.findConj
     my ( $leftx, $lefty, $rightx, $righty ) = @_;
 
     my ( $width, $centrex, $centrey, $relation );
@@ -1447,6 +1457,7 @@ sub find_conj {
 }
 
 sub get_conj {
+    # celestial.getConj
     my ($ahar) = @_;
 
     &find_conj( $ahar - 2, &get_elong( $ahar - 2 ),
@@ -1454,6 +1465,7 @@ sub get_conj {
 }
 
 sub get_clong {
+    # celestial.getClong
     my ( $ahar, $tithi ) = @_;
 
     my ($new_new);
@@ -1478,6 +1490,7 @@ sub get_clong {
 }
 
 sub get_nclong {
+    # celestial.getNclong
     my ( $ahar, $tithi ) = @_;
 
     my ($new_new);

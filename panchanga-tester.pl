@@ -4,6 +4,11 @@ use warnings;
 
 require('panchanga.pl');
 
+&set_primary_constant;
+&add_bija;
+&set_secondary_constant;
+&set_planetary_constant;
+
 my $function_name = "arcsin";
 
 print "\n\nTesting the function \"" . $function_name . "\"\n\n";
@@ -197,11 +202,6 @@ print "\n\nTesting the function \"" . $function_name . "\"\n\n";
 &test("(245.9229472947752, 3.593757395798)");
 &test("(302.3068304585275, 56.597297524597)");
 
-&set_primary_constant;
-&add_bija;
-&set_secondary_constant;
-&set_planetary_constant;
-
 $function_name = "get_manda_equation";
 print "\n\nTesting the function \"" . $function_name . "\"\n\n";
 
@@ -249,3 +249,15 @@ print "\n\nTesting the function \"" . $function_name . "\"\n\n";
 &test("(-88.9654048381817, \"jupiter\")");
 &test("(-42.8326673204595, \"saturn\")");
 &test("(-40.2050617905807, \"saturn\")");
+
+
+$function_name = "declination";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(31.3101877453024)");
+&test("(42.2597957259723)");
+&test("(59.2349729472294)");
+&test("(62.5975972349908)");
+&test("(80.4818781723799)");
+&test("(121.1497130809087)");
+&test("(320.8687779979979)");

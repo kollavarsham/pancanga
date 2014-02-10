@@ -1560,6 +1560,7 @@ sub find_samkranti {    #find out samkranti in ahargana #20010311
 }
 
 sub set_samkranti {    ###20010311
+    # calendar.setSamkranti
     my ($ahar) = @_;
 
     #    if (&abs($ahar - $samkranti) < 1) { #20020308
@@ -1575,7 +1576,7 @@ sub set_samkranti {    ###20010311
 }
 
 sub today_saura_masa_first_p {    ###20001231
-
+    # calendar.isTodaySauraMasaFirst
     #
     # Definition of the first day
     # samkranti is between today's 0:00 and 24:00
@@ -1602,6 +1603,7 @@ sub today_saura_masa_first_p {    ###20001231
 }
 
 sub get_saura_masa_day {    ###20001231
+    # calendar.getSauraMasaMonthDay
 
     # If today is the first day then 1
     # Otherwies yesterday's + 1

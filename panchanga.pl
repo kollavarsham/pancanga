@@ -800,6 +800,7 @@ sub get_sukla_krsna {
 }
 
 sub get_adhimasa {
+    # calendar.getAdhimasa
     my ( $clong, $nclong ) = @_;
 
     if ( &adhimasa_p( $clong, $nclong ) ) {
@@ -811,6 +812,7 @@ sub get_adhimasa {
 }
 
 sub get_masa_name {
+    # calendar.getMasaName
     my ($number) = @_;
 
     my %masa_name = (
@@ -1510,6 +1512,7 @@ sub get_nclong {
 }
 
 sub get_masa_num {
+    # calendar.getMasaNum
     my ( $tslong, $clong ) = @_;
 
     my ($masa_num);

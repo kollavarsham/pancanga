@@ -1117,7 +1117,6 @@ sub get_mean_long {
     my ( $ahar, $rotation ) = @_;
 
     # definition
-
     360 * &frac( $rotation * $ahar / $YugaCivilDays );
 
   # {consider rounding}
@@ -1529,6 +1528,7 @@ sub get_masa_num {
 #{ saura_masa calculations }
 
 sub find_samkranti {    #find out samkranti in ahargana #20010311
+    # calendar.findSamkranti
     my ( $o_ahar, $n_ahar ) = @_;
 
     my ( $o_tslong, $n_tslong, $c_ahar, $c_tslong, $width );

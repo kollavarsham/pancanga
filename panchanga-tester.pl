@@ -5,7 +5,6 @@ use warnings;
 require('panchanga.pl');
 
 &set_primary_constant;
-&add_bija;
 &set_secondary_constant;
 &set_planetary_constant;
 
@@ -297,3 +296,66 @@ print "\n\nTesting the function \"" . $function_name . "\"\n\n";
 &test("(2456351.5)");
 &test("(2455985.5)");
 &test("(2433313.5)");
+
+$function_name = "get_tslong";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(2299158.5)");
+&test("(2299159.5)");
+&test("(2299160.5)");
+&test("(2299161.5)");
+&test("(2361220.5)");
+&test("(2361221.5)");
+&test("(2361222.5)");
+&test("(1721457.5)");
+&test("(2456656.5)");
+&test("(2456657.5)");
+&test("(2455957.5)");
+&test("(2456351.5)");
+&test("(2455985.5)");
+&test("(2433313.5)");
+
+$function_name = "get_tllong";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(2299158.5)");
+&test("(2299159.5)");
+&test("(2299160.5)");
+&test("(2299161.5)");
+&test("(2361220.5)");
+&test("(2361221.5)");
+&test("(2361222.5)");
+&test("(1721457.5)");
+&test("(2456656.5)");
+&test("(2456657.5)");
+&test("(2455957.5)");
+&test("(2456351.5)");
+&test("(2455985.5)");
+&test("(2433313.5)");
+
+$function_name = "find_samkranti";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(1868206, 1868207)");
+&test("(1868236, 1868237)");
+&test("(1868266, 1868267)");
+&test("(1721431, 1721432)");
+&test("(2299153, 2299154)");
+
+$function_name = "get_mean_long";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(1868236.15634155, 4320000)");
+&test("(1868236.15637207, 4320000)");
+&test("(1868236.15635681, 4320000)");
+&test("(1868236.15635681, 4320000)");
+&test("(1868236.15637207, 4320000)");
+&test("(1868236.15636444, 4320000)");
+&test("(1868236.15635681, 4320000)");
+&test("(1868236.15636444, 4320000)");
+&test("(1868236.15636063, 4320000)");
+&test("(1868236.15636063, 4320000)");
+&test("(1868236.15636444, 4320000)");
+&test("(1868236.15636253, 4320000)");
+&test("(1868236.15636063, 4320000)");
+&test("(1868236.15636253, 4320000)");

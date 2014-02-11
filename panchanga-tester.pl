@@ -359,3 +359,73 @@ print "\n\nTesting the function \"" . $function_name . "\"\n\n";
 &test("(1868236.15636253, 4320000)");
 &test("(1868236.15636063, 4320000)");
 &test("(1868236.15636253, 4320000)");
+
+$function_name = "get_saura_masa_name";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(0)");
+&test("(1)");
+&test("(2)");
+&test("(3)");
+&test("(4)");
+&test("(5)");
+&test("(6)");
+&test("(7)");
+&test("(8)");
+&test("(9)");
+&test("(10)");
+&test("(11)");
+
+$function_name = "get_naksatra_name";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(167.084587116821)");
+&test("(179.618866280373)");
+&test("(191.953219840454)");
+&test("(204.131519861513)");
+&test("(349.195739637822)");
+&test("(1.82309136307406)");
+&test("(14.6945040053245)");
+&test("(6.55724149356419)");
+&test("(16.24829446685)");
+&test("(29.8253740270552)");
+&test("(156.709071062542)");
+&test("(316.081404838166)");
+&test("(165.854323537076)");
+&test("(236.806759936797)");
+
+$function_name = "Ahargana_to_Kali";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(1710693)");
+&test("(1710694)");
+&test("(1710695)");
+&test("(1710696)");
+&test("(1772755)");
+&test("(1772756)");
+&test("(1772757)");
+&test("(1132992)");
+&test("(1868191)");
+&test("(1868192)");
+&test("(1867492)");
+&test("(1867886)");
+&test("(1867520)");
+&test("(1844848)");
+
+$function_name = "Kali_to_Saka";
+print "\n\nTesting the function \"" . $function_name . "\"\n\n";
+
+&test("(4683)");
+&test("(4683)");
+&test("(4683)");
+&test("(4683)");
+&test("(4853)");
+&test("(4853)");
+&test("(4853)");
+&test("(3101)");
+&test("(5114)");
+&test("(5114)");
+&test("(5112)");
+&test("(5113)");
+&test("(5112)");
+&test("(5050)");

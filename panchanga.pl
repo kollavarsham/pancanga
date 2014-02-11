@@ -14,7 +14,7 @@ my $variabledeclaration = $true;
 my $pancanga_as_sub = $true;
 
 sub numeric_p {
-    # Checks whether argument isNumeric - math.isNumber
+    # Checks whether argument isNumeric - math.isNumber - HP
     my ($data) = @_;
 
     if ( $data =~ /^-?\d*\.?\d*(e\d|e-\d)?\d*$/ ) {
@@ -26,7 +26,7 @@ sub numeric_p {
 }
 
 sub int_p {
-    # Checks whether argument is an integer - math.isInt
+    # Checks whether argument is an integer - math.isInt - HP
     my ($data) = @_;
 
     if ( ( &numeric_p($data) && ( int($data) == $data ) ) ) {
@@ -38,14 +38,14 @@ sub int_p {
 }
 
 sub trunc {
-    # Truncates the number towards 0  for numbers - for non-numbers returns 0 - math.truncate
+    # Truncates the number towards 0  for numbers - for non-numbers returns 0 - math.truncate - HP
     my ($x) = @_;
 
     int($x);
 }
 
 sub floor {
-    # Standard floor implementation - math.floor
+    # Standard floor implementation - math.floor - HP
     my ($x) = @_;
 
     my ($y);
@@ -60,21 +60,21 @@ sub floor {
 }
 
 sub frac {
-    # Returns the fraction part of the real number - math.fractional
+    # Returns the fraction part of the real number - math.fractional - HP
     my ($x) = @_;
 
     $x - int($x);
 }
 
 sub round {
-    # Standard round implementation - math.round
+    # Standard round implementation - math.round - HP
     my ($x) = @_;
 
     &floor( $x + 0.5 );
 }
 
 sub sqr {
-    # Squaring function - math.square
+    # Squaring function - math.square - HP
     my ($x) = @_;
 
     $x * $x;
@@ -85,7 +85,7 @@ sub sqr {
 #{:::::::::::::::::::::::::::}
 # { mathematical constants }
 
-my $pi  = atan2( 1, 1 ) * 4;   # Math.PI constant
+my $pi  = atan2( 1, 1 ) * 4;   # Math.PI constant - HP
 # $pi2 = $pi * 2;
 my $rad = 180 / $pi;
 
@@ -201,7 +201,7 @@ my $counter = $variabledeclaration;
 #{:::::::::::::::::::::::::::}
 
 sub abs {
-    # Standard Math.abs function
+    # Standard Math.abs function - HP
     my ($x) = @_;
 
     if ( $x < 0 ) {
@@ -213,7 +213,7 @@ sub abs {
 }
 
 sub zero360 {
-    # Looks to be converting negative longitudes to their positive values on a 0-360 quadrant - geolocation.zero360
+    # Looks to be converting negative longitudes to their positive values on a 0-360 quadrant - celestial.zero360 - HP
     my ($longitude) = @_;
 
     #    $longitude = $longitude - trunc($longitude / 360) * 360;
@@ -226,14 +226,14 @@ sub zero360 {
 }
 
 sub tan {
-    # Standard Math.tan implementation - Math.tan
+    # Standard Math.tan implementation - Math.tan - HP
     my ($x) = @_;
 
     sin($x) / cos($x);
 }
 
 sub arcsin {    ###20010316
-    # Standard Math.asin implementation - Math.asin
+    # Standard Math.asin implementation - Math.asin - HP
     my ($x) = @_;
 
     if ( $eps < &abs( 1 - &sqr($x) ) ) {
@@ -248,7 +248,7 @@ sub arcsin {    ###20010316
 }
 
 sub three_relation {
-    # celestial.threeRelation
+    # celestial.threeRelation - HP
     my ( $a, $b, $c ) = @_;
 
     if ( ( $a < $b ) && ( $b < $c ) ) {
@@ -266,7 +266,7 @@ sub three_relation {
 # { from one date to another date }
 
 sub next_date {
-    # calendar.nextDate
+    # calendar.nextDate - HP
     my ( $year, $month, $day ) = @_;
 
     $day = $day + 1;
@@ -348,7 +348,7 @@ sub next_date {
 #   end;
 
 sub ModernDate_to_JulianDay {
-    # calendar.gregorianDateToJulianDay
+    # calendar.gregorianDateToJulianDay - HP
     my ( $year, $month, $day ) = @_;
 
     my ($julian_day);
@@ -374,7 +374,8 @@ sub ModernDate_to_JulianDay {
 }
 
 sub Julian_in_England_p {    ###20030331
-    # calendar.julianInEngland
+    # calendar.julianInEngland - HP
+    # Start Comment - HP
     # Gregorian calendar was first introduced in most of Europe in 1582,
     # but it wasn't adopted in England (and so in US and Canada) until 1752
     #
@@ -382,6 +383,7 @@ sub Julian_in_England_p {    ###20030331
     #
     # This function returns true between
     #      October 14th, 1582 and September 14th, 1752, both dates exclusive
+    # End Comment - HP
     my ($JulianDay) = @_;
 
     if ( ( 2299160 < $JulianDay ) && ( $JulianDay <= 2361221 ) ) {
@@ -394,7 +396,7 @@ sub Julian_in_England_p {    ###20030331
 }
 
 sub JulianDay_to_JulianDate {    ###20040205
-    # calendar.julianDayToJulianDate
+    # calendar.julianDayToJulianDate - HP
     my ($JulianDay) = @_;
 
     my ( $j, $k, $l, $n, $i, $J, $I );
@@ -414,7 +416,7 @@ sub JulianDay_to_JulianDate {    ###20040205
 }
 
 sub JulianDay_to_GregorianDate {    ###20030331
-    # calendar.julianDayToGregorianDate
+    # calendar.julianDayToGregorianDate - HP
     my ($JulianDay) = @_;
 
     my ( $a, $b, $c, $e, $f, $g, $h );
@@ -435,7 +437,7 @@ sub JulianDay_to_GregorianDate {    ###20030331
 }
 
 sub JulianDay_to_ModernDate {    ###20030331
-    # calendar.julianDayToModernDate
+    # calendar.julianDayToModernDate - HP
     my ($JulianDay) = @_;
 
     my ( $year, $month, $day );
@@ -478,7 +480,7 @@ sub JulianDay_to_ModernDate {    ###20030331
 #}
 
 sub JulianDay_to_Ahargana {
-    # calendar.julianDayToAhargana
+    # calendar.julianDayToAhargana - HP
 
     # {from epoch midnight to given midnight}
     my ($julian_day) = @_;
@@ -487,14 +489,14 @@ sub JulianDay_to_Ahargana {
 }
 
 sub Ahargana_to_JulianDay {
-    # calendar.aharganaToJulianDay
+    # calendar.aharganaToJulianDay - HP
     my ($ahar) = @_;
 
     588465.50 + $ahar;
 }
 
 sub Ahargana_to_Kali {
-    # TODO: wait until primary and secondary constants are set
+    # calendar.aharganaToKali - HP
     my ($ahar) = @_;
 
     # global variables: $YugaRotation{'sun'}, $YugaCivilDays
@@ -503,7 +505,6 @@ sub Ahargana_to_Kali {
 }
 
 sub Kali_to_Ahargana {
-    # TODO: wait until primary and secondary constants are set
     my ( $YearKali, $masa_num, $tithi_day ) = @_;
 
 # global variables: $YugaAdhimasa, $YugaRotation{'sun'}, $YugaKsayadina, $YugaTithi
@@ -523,6 +524,7 @@ sub Kali_to_Ahargana {
 }
 
 sub Kali_to_Saka {
+    # calendar.kaliToSaka - HP
     my ($YearKali) = @_;
 
     $YearKali - 3179;
@@ -538,6 +540,7 @@ sub Saka_to_Kali {
 # { condition check }
 
 sub adhimasa_p {
+    # this puny method has been absorbed into its caller - HP
     my ( $clong, $nclong ) = @_;
 
     if ( &trunc( $clong / 30 ) == &trunc( $nclong / 30 ) ) {
@@ -781,7 +784,7 @@ sub read_indian_date {
 #{:::::::::::::::::::::::::::}
 # { get names }
 sub get_weekday_name {
-    # calendar.julianDayToWeekday
+    # calendar.julianDayToWeekday - HP
     my ($JulianDay) = @_;
 
     my %weekday_name = (
@@ -793,14 +796,14 @@ sub get_weekday_name {
 }
 
 sub get_sukla_krsna {
-    # we don't really need this function
+    # we don't really need this function - HP
     my ($paksa) = @_;
 
     $paksa;
 }
 
 sub get_adhimasa {
-    # calendar.getAdhimasa
+    # calendar.getAdhimasa - HP
     my ( $clong, $nclong ) = @_;
 
     if ( &adhimasa_p( $clong, $nclong ) ) {
@@ -812,7 +815,7 @@ sub get_adhimasa {
 }
 
 sub get_masa_name {
-    # calendar.getMasaName
+    # calendar.getMasaName - HP
     my ($number) = @_;
 
     my %masa_name = (
@@ -826,20 +829,22 @@ sub get_masa_name {
 }
 
 sub get_saura_masa_name {    ###20000613
+    # calendar.getSauraMasaName - HP
     my ($number) = @_;
 
-#    %saura_masa_name = (
-#    0, 'Mesa   ', 1, 'Vrsa   ', 2,  'Mithuna', 3,  'Karkata',
-#    4, 'Simha  ', 5, 'Kanya  ', 6,  'Tula   ', 7,  'Vrscika',
-#    8, 'Dhanus ', 9, 'Makara ', 10, 'Kumbha ', 11, 'Mina   '
+    my %saura_masa_name = (
+    0, 'Mesa   ', 1, 'Vrsa   ', 2,  'Mithuna', 3,  'Karkata',
+    4, 'Simha  ', 5, 'Kanya  ', 6,  'Tula   ', 7,  'Vrscika',
+    8, 'Dhanus ', 9, 'Makara ', 10, 'Kumbha ', 11, 'Mina   '
+    );
+
+    # For use with Kollavarsham - HP
+#    my %saura_masa_name = (
+#    0, 'Medam     ', 1, 'Idavam    ', 2,  'Mithunam  ', 3,  'Karkitakam',
+#    4, 'Chingam   ', 5, 'Kanni     ', 6,  'Thulam    ', 7,  'Vrischikam',
+#    8, 'Dhanu     ', 9, 'Makaram   ', 10, 'Kumbham   ', 11, 'Meenam    '
 #    );
 #    
-    my %saura_masa_name = (
-    0, 'Medam     ', 1, 'Idavam    ', 2,  'Mithunam  ', 3,  'Karkitakam',
-    4, 'Chingam   ', 5, 'Kanni     ', 6,  'Thulam    ', 7,  'Vrischikam',
-    8, 'Dhanu     ', 9, 'Makaram   ', 10, 'Kumbham   ', 11, 'Meenam    '
-    );
-    
     $saura_masa_name{$number};
 }
 
@@ -919,34 +924,36 @@ sub get_yoga_name {
 }
 
 sub get_naksatra_name {
+    # calendar.getNaksatraName - HP
     my ($tllong) = @_;
 
-#    %naksatra_name = (
-#    0,  'Asvini',       1,  'Bharani',      2,  'Krttika',
-#    3,  'Rohini',       4,  'Mrgasira',     5,  'Ardra',
-#    6,  'Punarvasu',    7,  'Pusya',        8,  'Aslesa',
-#    9,  'Magha',        10, 'P-phalguni',   11, 'U-phalguni',
-#    12, 'Hasta',        13, 'Citra',        14, 'Svati',
-#    15, 'Visakha',      16, 'Anuradha',     17, 'Jyestha',
-#    18, 'Mula',         19, 'P-asadha',     20, 'U-asadha',
-#    21, 'Sravana',      22, 'Dhanistha',    23, 'Satabhisaj',
-#    24, 'P-bhadrapada', 25, 'U-bhadrapada', 26, 'Revati',
-#    27, 'Asvini'
-#    );
-#    
     my %naksatra_name = (
-    0,  'Ashwathi',     1,  'Bharani',      2,  'Karthika',
-    3,  'Rohini',       4,  'Makeeryam',    5,  'Thiruvathira',
-    6,  'Punartham',    7,  'Pooyam',       8,  'Aayilyam',
-    9,  'Makam',        10, 'Pooram',       11, 'Uthram',
-    12, 'Atham',        13, 'Chithira',     14, 'Chothi',
-    15, 'Visakham',     16, 'Anizham',      17, 'Thrikketta',
-    18, 'Moolam',       19, 'Pooradam',     20, 'Uthradam',
-    21, 'Thiruvonam',   22, 'Avittam',      23, 'Chathayam',
-    24, 'Poororuttathi',25, 'Uthratathi',   26, 'Revathi',
-    27, 'Ashwathi'
+    0,  'Asvini',       1,  'Bharani',      2,  'Krttika',
+    3,  'Rohini',       4,  'Mrgasira',     5,  'Ardra',
+    6,  'Punarvasu',    7,  'Pusya',        8,  'Aslesa',
+    9,  'Magha',        10, 'P-phalguni',   11, 'U-phalguni',
+    12, 'Hasta',        13, 'Citra',        14, 'Svati',
+    15, 'Visakha',      16, 'Anuradha',     17, 'Jyestha',
+    18, 'Mula',         19, 'P-asadha',     20, 'U-asadha',
+    21, 'Sravana',      22, 'Dhanistha',    23, 'Satabhisaj',
+    24, 'P-bhadrapada', 25, 'U-bhadrapada', 26, 'Revati',
+    27, 'Asvini'
     );
     
+    # For use with Kollavarsham - HP
+#    my %naksatra_name = (
+#    0,  'Ashwathi',     1,  'Bharani',      2,  'Karthika',
+#    3,  'Rohini',       4,  'Makeeryam',    5,  'Thiruvathira',
+#    6,  'Punartham',    7,  'Pooyam',       8,  'Aayilyam',
+#    9,  'Makam',        10, 'Pooram',       11, 'Uthram',
+#    12, 'Atham',        13, 'Chithira',     14, 'Chothi',
+#    15, 'Visakham',     16, 'Anizham',      17, 'Thrikketta',
+#    18, 'Moolam',       19, 'Pooradam',     20, 'Uthradam',
+#    21, 'Thiruvonam',   22, 'Avittam',      23, 'Chathayam',
+#    24, 'Poororuttathi',25, 'Uthratathi',   26, 'Revathi',
+#    27, 'Ashwathi'
+#    );
+#    
     $naksatra_name{ &trunc( $tllong * 27 / 360 ) };
 }
 
@@ -1009,7 +1016,7 @@ sub get_Jovian_Year_name_south {
 #{:::::::::::::::::::::::::::}
 
 sub set_primary_constant {
-    # celestial.setPrimaryConstants
+    # celestial.setPrimaryConstants - HP
     $YugaRotation{'star'}      = 1582237800;    ###20020331
     $YugaRotation{'sun'}       = 4320000;
     $YugaRotation{'moon'}      = 57753336;
@@ -1023,7 +1030,7 @@ sub set_primary_constant {
 }
 
 sub add_bija {
-    # celestial.applyBija
+    # celestial.applyBija - HP
     # global variables: $with_bija_pf
     if ($with_bija_pf) {
         $YugaRotation{'star'}    = $YugaRotation{'star'} + 28;       ###20020331
@@ -1040,7 +1047,7 @@ sub add_bija {
 }
 
 sub set_secondary_constant {
-    # celestial.setSecondaryConstants
+    # celestial.setSecondaryConstants - HP
     $YugaCivilDays    = $YugaRotation{'star'} - $YugaRotation{'sun'};
     $YugaSynodicMonth = $YugaRotation{'moon'} - $YugaRotation{'sun'};
     $YugaAdhimasa     = $YugaSynodicMonth - 12 * $YugaRotation{'sun'};
@@ -1049,7 +1056,7 @@ sub set_secondary_constant {
 }
 
 sub set_planetary_constant {
-    # celestial.setPlanetaryConstants
+    # celestial.setPlanetaryConstants - HP
 
     $PlanetRotation{'star'} = 0;
     $PlanetSighra{'star'}   = 0;
@@ -1113,7 +1120,7 @@ sub set_planetary_constant {
 }
 
 sub get_mean_long {
-    # celestial.getMeanLongitude
+    # celestial.getMeanLongitude - HP
     my ( $ahar, $rotation ) = @_;
 
     # definition
@@ -1148,14 +1155,14 @@ sub get_mean_long {
 }
 
 sub declination {
-    # celestial.declination
+    # celestial.declination - HP
     my ($long) = @_;
     
     &arcsin( sin( $long / $rad ) * sin( 24 / $rad ) ) * $rad;
 }
 
 sub get_daylight_equation {
-    # celestial.getDaylightEquation
+    # celestial.getDaylightEquation - HP
 
     # global variables: $ahar, $YugaRotation{'sun'}
     my ( $year, $loc_lat ) = @_;
@@ -1187,7 +1194,7 @@ sub get_daylight_equation {
 }
 
 sub get_sun_rise_time {
-    # celestial.setSunriseTime
+    # celestial.setSunriseTime - HP
     my ($eqtime) = @_;
 
     my ( $sriseh, $srisem );
@@ -1198,10 +1205,10 @@ sub get_sun_rise_time {
 }
 
 sub get_ayana_amsa {    ###20010313
-    # celestial.setAyanamsa
-    # Good reads:
-    # https://en.wikipedia.org/wiki/Ayanamsa
-    # http://pidaparthypanchangam.com/?m=201306&paged=2
+    # celestial.setAyanamsa - HP
+    # Good reads: - HP
+    # https://en.wikipedia.org/wiki/Ayanamsa - HP
+    # http://pidaparthypanchangam.com/?m=201306&paged=2 - HP
     my ($ahar) = @_;
 
     my ( $ayanadeg, $ayanamin );
@@ -1217,7 +1224,7 @@ sub get_ayana_amsa {    ###20010313
 }
 
 sub get_manda_equation {
-    # celestial.getMandaEquation
+    # celestial.getMandaEquation - HP
     my ( $argument, $planet ) = @_;
 
     &arcsin( $PlanetCircumm{$planet} / 360 * sin( $argument / $rad ) ) * $rad;
@@ -1341,7 +1348,7 @@ sub ascendant {
 }
 
 sub get_tithi {
-    # celestial.getTithi
+    # celestial.getTithi - HP
     my ( $tllong, $tslong ) = @_;
 
     my ($elong);
@@ -1353,7 +1360,7 @@ sub get_tithi {
 }
 
 sub get_tithi_set {
-    # celestial.setTithiSet
+    # celestial.setTithiSet - HP
     my ($tithi) = @_;
 
     my ( $tithi_day, $ftithi );
@@ -1365,7 +1372,7 @@ sub get_tithi_set {
 }
 
 sub set_sukla_krsna {
-    # celestial.setSuklaKrsna
+    # celestial.setSuklaKrsna - HP
     my ($tithi_day) = @_;
 
     my ( $sukla_krsna, $paksa );
@@ -1383,7 +1390,7 @@ sub set_sukla_krsna {
 }
 
 sub get_tslong {
-    # celestial.getTslong
+    # celestial.getTslong - HP
     my ($ahar) = @_;
 
     my ($mslong);
@@ -1395,7 +1402,7 @@ sub get_tslong {
 }
 
 sub get_tllong {
-    # celestial.getTllong
+    # celestial.getTllong - HP
     my ($ahar) = @_;
 
     my ( $mllong, $apogee );
@@ -1406,7 +1413,7 @@ sub get_tllong {
 }
 
 sub get_elong {
-    # celestial.getElong
+    # celestial.getElong - HP
     my ($ahar) = @_;
 
     my ($elong);
@@ -1419,7 +1426,7 @@ sub get_elong {
 }
 
 sub find_conj {
-    # celestial.findConj
+    # celestial.findConj - HP
     my ( $leftx, $lefty, $rightx, $righty ) = @_;
 
     my ( $width, $centrex, $centrey, $relation );
@@ -1458,7 +1465,7 @@ sub find_conj {
 }
 
 sub get_conj {
-    # celestial.getConj
+    # celestial.getConj - HP
     my ($ahar) = @_;
 
     &find_conj( $ahar - 2, &get_elong( $ahar - 2 ),
@@ -1466,7 +1473,7 @@ sub get_conj {
 }
 
 sub get_clong {
-    # celestial.getClong
+    # celestial.getClong - HP
     my ( $ahar, $tithi ) = @_;
 
     my ($new_new);
@@ -1491,7 +1498,7 @@ sub get_clong {
 }
 
 sub get_nclong {
-    # celestial.getNclong
+    # celestial.getNclong - HP
     my ( $ahar, $tithi ) = @_;
 
     my ($new_new);
@@ -1511,7 +1518,7 @@ sub get_nclong {
 }
 
 sub get_masa_num {
-    # calendar.getMasaNum
+    # calendar.getMasaNum - HP
     my ( $tslong, $clong ) = @_;
 
     my ($masa_num);
@@ -1528,7 +1535,7 @@ sub get_masa_num {
 #{ saura_masa calculations }
 
 sub find_samkranti {    #find out samkranti in ahargana #20010311
-    # calendar.findSamkranti
+    # calendar.findSamkranti - HP
     my ( $o_ahar, $n_ahar ) = @_;
 
     my ( $o_tslong, $n_tslong, $c_ahar, $c_tslong, $width );
@@ -1560,7 +1567,7 @@ sub find_samkranti {    #find out samkranti in ahargana #20010311
 }
 
 sub set_samkranti {    ###20010311
-    # calendar.setSamkranti
+    # calendar.setSamkranti - HP
     my ($ahar) = @_;
 
     #    if (&abs($ahar - $samkranti) < 1) { #20020308
@@ -1576,7 +1583,7 @@ sub set_samkranti {    ###20010311
 }
 
 sub today_saura_masa_first_p {    ###20001231
-    # calendar.isTodaySauraMasaFirst
+    # calendar.isTodaySauraMasaFirst - HP
     #
     # Definition of the first day
     # samkranti is between today's 0:00 and 24:00
@@ -1603,7 +1610,7 @@ sub today_saura_masa_first_p {    ###20001231
 }
 
 sub get_saura_masa_day {    ###20001231
-    # calendar.getSauraMasaMonthDay
+    # calendar.getSauraMasaMonthDay - HP
 
     # If today is the first day then 1
     # Otherwies yesterday's + 1
@@ -1628,7 +1635,7 @@ sub get_saura_masa_day {    ###20001231
 #{ set of calculations }
 
 sub calculations {
-    # kollavarsham.calculations
+    # kollavarsham.calculations - HP
 
     &set_primary_constant;
     &add_bija;

@@ -149,12 +149,12 @@ my $back_clong       = -1;
 my $back_nclong      = -1;
 
 #    type  paksas                                =(suklapaksa, krsnapaksa);
-my $year  = $variabledeclaration;
-my $month = $variabledeclaration;
+our $year  = $variabledeclaration;
+our $month = $variabledeclaration;
 my $paksa = $variabledeclaration;
 
 # (suklapaksa, krsnapaksa);
-my $day               = $variabledeclaration;              # {for ahargana}
+our $day               = $variabledeclaration;              # {for ahargana}
 my $ahar              = $variabledeclaration;              # {for ahargana}
 my $ahargana          = $variabledeclaration;
 my $hours             = $variabledeclaration;
@@ -1231,6 +1231,7 @@ sub get_manda_equation {
 }
 
 sub get_sighra_equation {
+    # celestial.getSighraEquation
     my ( $anomaly, $planet ) = @_;
 
     my ( $bhuja, $koti, $karna );
@@ -1242,6 +1243,7 @@ sub get_sighra_equation {
 }
 
 sub get_true_long {
+    # celestial.getTrueLongitude
     my ( $ahar, $mslong, $planet ) = @_;
 
     my ( $mean_long1, $mean_long2, $mean_long3 );
@@ -1635,7 +1637,7 @@ sub get_saura_masa_day {    ###20001231
 #{ set of calculations }
 
 sub calculations {
-    # kollavarsham.calculations - HP
+    # calculations.main - HP
 
     &set_primary_constant;
     &add_bija;
@@ -1714,6 +1716,7 @@ sub calculations {
 }
 
 sub planetary_calculations {
+    # calculations.planetary
 
     # {mean and true planets at sunrise}
     for ( 'mercury', 'venus', 'mars', 'jupiter', 'saturn' ) {

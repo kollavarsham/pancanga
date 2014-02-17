@@ -11,7 +11,7 @@ my $false = 0;
 
 my $variabledeclaration = $true;
 
-my $pancanga_as_sub = $true;
+my $pancanga_as_sub = $false;
 
 sub numeric_p {
     # Checks whether argument isNumeric - math.isNumber - HP
@@ -832,19 +832,19 @@ sub get_saura_masa_name {    ###20000613
     # calendar.getSauraMasaName - HP
     my ($number) = @_;
 
-    my %saura_masa_name = (
-    0, 'Mesa   ', 1, 'Vrsa   ', 2,  'Mithuna', 3,  'Karkata',
-    4, 'Simha  ', 5, 'Kanya  ', 6,  'Tula   ', 7,  'Vrscika',
-    8, 'Dhanus ', 9, 'Makara ', 10, 'Kumbha ', 11, 'Mina   '
-    );
-
-    # For use with Kollavarsham - HP
 #    my %saura_masa_name = (
-#    0, 'Medam     ', 1, 'Idavam    ', 2,  'Mithunam  ', 3,  'Karkitakam',
-#    4, 'Chingam   ', 5, 'Kanni     ', 6,  'Thulam    ', 7,  'Vrischikam',
-#    8, 'Dhanu     ', 9, 'Makaram   ', 10, 'Kumbham   ', 11, 'Meenam    '
+#    0, 'Mesa   ', 1, 'Vrsa   ', 2,  'Mithuna', 3,  'Karkata',
+#    4, 'Simha  ', 5, 'Kanya  ', 6,  'Tula   ', 7,  'Vrscika',
+#    8, 'Dhanus ', 9, 'Makara ', 10, 'Kumbha ', 11, 'Mina   '
 #    );
-#    
+#
+    # For use with Kollavarsham - HP
+    my %saura_masa_name = (
+    0, 'Medam     ', 1, 'Idavam    ', 2,  'Mithunam  ', 3,  'Karkitakam',
+    4, 'Chingam   ', 5, 'Kanni     ', 6,  'Thulam    ', 7,  'Vrischikam',
+    8, 'Dhanu     ', 9, 'Makaram   ', 10, 'Kumbham   ', 11, 'Meenam    '
+    );
+    
     $saura_masa_name{$number};
 }
 
@@ -927,33 +927,33 @@ sub get_naksatra_name {
     # calendar.getNaksatraName - HP
     my ($tllong) = @_;
 
-    my %naksatra_name = (
-    0,  'Asvini',       1,  'Bharani',      2,  'Krttika',
-    3,  'Rohini',       4,  'Mrgasira',     5,  'Ardra',
-    6,  'Punarvasu',    7,  'Pusya',        8,  'Aslesa',
-    9,  'Magha',        10, 'P-phalguni',   11, 'U-phalguni',
-    12, 'Hasta',        13, 'Citra',        14, 'Svati',
-    15, 'Visakha',      16, 'Anuradha',     17, 'Jyestha',
-    18, 'Mula',         19, 'P-asadha',     20, 'U-asadha',
-    21, 'Sravana',      22, 'Dhanistha',    23, 'Satabhisaj',
-    24, 'P-bhadrapada', 25, 'U-bhadrapada', 26, 'Revati',
-    27, 'Asvini'
-    );
-    
-    # For use with Kollavarsham - HP
 #    my %naksatra_name = (
-#    0,  'Ashwathi',     1,  'Bharani',      2,  'Karthika',
-#    3,  'Rohini',       4,  'Makeeryam',    5,  'Thiruvathira',
-#    6,  'Punartham',    7,  'Pooyam',       8,  'Aayilyam',
-#    9,  'Makam',        10, 'Pooram',       11, 'Uthram',
-#    12, 'Atham',        13, 'Chithira',     14, 'Chothi',
-#    15, 'Visakham',     16, 'Anizham',      17, 'Thrikketta',
-#    18, 'Moolam',       19, 'Pooradam',     20, 'Uthradam',
-#    21, 'Thiruvonam',   22, 'Avittam',      23, 'Chathayam',
-#    24, 'Poororuttathi',25, 'Uthratathi',   26, 'Revathi',
-#    27, 'Ashwathi'
+#    0,  'Asvini',       1,  'Bharani',      2,  'Krttika',
+#    3,  'Rohini',       4,  'Mrgasira',     5,  'Ardra',
+#    6,  'Punarvasu',    7,  'Pusya',        8,  'Aslesa',
+#    9,  'Magha',        10, 'P-phalguni',   11, 'U-phalguni',
+#    12, 'Hasta',        13, 'Citra',        14, 'Svati',
+#    15, 'Visakha',      16, 'Anuradha',     17, 'Jyestha',
+#    18, 'Mula',         19, 'P-asadha',     20, 'U-asadha',
+#    21, 'Sravana',      22, 'Dhanistha',    23, 'Satabhisaj',
+#    24, 'P-bhadrapada', 25, 'U-bhadrapada', 26, 'Revati',
+#    27, 'Asvini'
 #    );
 #    
+    # For use with Kollavarsham - HP
+    my %naksatra_name = (
+    0,  'Ashwathi',     1,  'Bharani',      2,  'Karthika',
+    3,  'Rohini',       4,  'Makeeryam',    5,  'Thiruvathira',
+    6,  'Punartham',    7,  'Pooyam',       8,  'Aayilyam',
+    9,  'Makam',        10, 'Pooram',       11, 'Uthram',
+    12, 'Atham',        13, 'Chithira',     14, 'Chothi',
+    15, 'Visakham',     16, 'Anizham',      17, 'Thrikketta',
+    18, 'Moolam',       19, 'Pooradam',     20, 'Uthradam',
+    21, 'Thiruvonam',   22, 'Avittam',      23, 'Chathayam',
+    24, 'Poororuttathi',25, 'Uthratathi',   26, 'Revathi',
+    27, 'Ashwathi'
+    );
+    
     $naksatra_name{ &trunc( $tllong * 27 / 360 ) };
 }
 

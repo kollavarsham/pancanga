@@ -68,6 +68,7 @@ print "\n\nTesting the function \"" . $function_name . "\"\n\n";
 $function_name = "ModernDate_to_JulianDay";
 print "\n\nTesting the function \"" . $function_name . "\"\n\n";
 
+&test("(2014, 2, 16)");
 &test("(2013, 12, 30)");
 &test("(2013, 12, 31)");
 &test("(2012, 01, 31)");

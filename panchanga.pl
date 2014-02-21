@@ -11,7 +11,7 @@ my $false = 0;
 
 my $variabledeclaration = $true;
 
-my $pancanga_as_sub = $true;
+my $pancanga_as_sub = $false;
 
 sub numeric_p {
     # Checks whether argument isNumeric - math.isNumber - HP
@@ -505,6 +505,7 @@ sub Ahargana_to_Kali {
 }
 
 sub Kali_to_Ahargana {
+    # calendar.kaliToAhargana
     my ( $YearKali, $masa_num, $tithi_day ) = @_;
 
 # global variables: $YugaAdhimasa, $YugaRotation{'sun'}, $YugaKsayadina, $YugaTithi
@@ -531,6 +532,7 @@ sub Kali_to_Saka {
 }
 
 sub Saka_to_Kali {
+    # calendar.sakaToKali - HP
     my ($YearSaka) = @_;
 
     $YearSaka + 3179;
@@ -1637,7 +1639,7 @@ sub get_saura_masa_day {    ###20001231
 #{ set of calculations }
 
 sub calculations {
-    # calculations.main - HP
+    # calculations.fromGregorian - HP
 
     &set_primary_constant;
     &add_bija;
@@ -1716,7 +1718,8 @@ sub calculations {
 }
 
 sub planetary_calculations {
-    # calculations.planetary
+    # merged this into the calculations.fromGregorian - HP
+    # Was a separate method at calculations.planetary - HP
 
     # {mean and true planets at sunrise}
     for ( 'mercury', 'venus', 'mars', 'jupiter', 'saturn' ) {

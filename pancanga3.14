@@ -1794,7 +1794,7 @@ sub wechseln_calc_write{ ###20011109
 # { OUTPUT }
 
 sub write_opening_message{
-print "   ********* Pancanga vers.3.2  **********   M. YANO and M. FUSHIMI \n";#20140315
+print "   ********* Pancanga vers.3.14  **********   M. YANO and M. FUSHIMI \n";#20140315
 #print "   ----------------- perl version ------------- March 2002          \n";
 print "   ----------------- perl version ------------- March 2014          \n";
 # 20140315

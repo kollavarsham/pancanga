@@ -2,7 +2,14 @@
 use strict;
 use warnings;
 
-# Version 3.20040205
+# Version 3.20140315
+# 20140223
+# 20040205
+# 20030430 # 20030331
+# 20020320 # 20020308 # 20020304
+# 20011118 # 20011114 # 20011109 # 20011107 # 20010416 # 20010412 # 20010409
+# 20010328 # 20010325 # 20010316 # 20010313 # 20010312 # 20010311 # 20010310
+# 20001231 # 20000910 # 20000614 # 20000613 # 20000522
 #{:::::::::::::::::::::::::::}
 # {addition in perl version}
 
@@ -99,7 +106,9 @@ my $epsiron = 1e-8;
 #{:::::::::::::::::::::::::::}
 # { settings }
 
-my $with_bija_pf = $false;
+#my $with_bija_pf  = $true;     #20140315
+my $SelectedSystem  = 'SuryaSiddhanta';     #20140315
+# 'InPancasiddhantika'
 
 #    $loc_lat       = 28.6;          # {Delhi}#20011114
 my $Ujjaini_lat = 23.2;            # {Ujjaini}#20020304
@@ -394,6 +403,26 @@ sub Julian_in_England_p {    ###20030331
     }
 
 }
+
+#sub JulianDay_to_JulianDate {###20030331
+#    local($JulianDay) = @_;
+#
+#    local($a, $b, $c, $e, $f, $g, $h);
+#    local($year, $month, $day); ###20010313
+#
+#    $a = int($JulianDay) + 68607;
+#    $b = int($a / 36525);
+#    $c = $a - int(36525 * $b);
+#    $e = int(($c + 1) / 365.25);
+#
+#    $f = $c - int(365.25 * $e) + 31;
+#    $g = int($f / 30.59);
+#    $h = int($g / 11);
+#    $day = &trunc($f - int(30.59 * $g) + ($JulianDay - int($JulianDay)));
+#    $month = &trunc($g - 12 * $h + 2);
+#    $year = &trunc(100 * ($b - 49) + $e + $h);
+#    ($year, $month, $day);
+#}
 
 sub JulianDay_to_JulianDate {    ###20040205
     # calendar.julianDayToJulianDate - HP
@@ -1017,36 +1046,61 @@ sub get_Jovian_Year_name_south {
 
 #{:::::::::::::::::::::::::::}
 
-sub set_primary_constant {
-    # celestial.setPrimaryConstants - HP
-    $YugaRotation{'star'}      = 1582237800;    ###20020331
-    $YugaRotation{'sun'}       = 4320000;
-    $YugaRotation{'moon'}      = 57753336;
-    $YugaRotation{'mercury'}   = 17937000;      ###20010328
-    $YugaRotation{'venus'}     = 7022388;       ###20010328
-    $YugaRotation{'mars'}      = 2296824;       ###20010328
-    $YugaRotation{'jupiter'}   = 364220;
-    $YugaRotation{'saturn'}    = 146564;        ###20010328
-    $YugaRotation{'Candrocca'} = 488219;
-    $YugaRotation{'Rahu'}      = -232226;
+# 20140315
+sub set_primary_constant_SuryaSiddhanta {# Saura, HIL, p.15
+    $YugaRotation{'star'}       = 1582237828;
+    $YugaRotation{'sun'}        = 4320000;
+    $YugaRotation{'moon'}       = 57753336;
+    $YugaRotation{'mercury'}    = 17937060;
+    $YugaRotation{'venus'}      = 7022376;
+    $YugaRotation{'mars'}       = 2296832;
+    $YugaRotation{'jupiter'}    = 364220;
+    $YugaRotation{'saturn'}     = 146568;
+    $YugaRotation{'Candrocca'}  = 488203;
+    $YugaRotation{'Rahu'}       = -232238;
 }
 
-sub add_bija {
-    # celestial.applyBija - HP
-    # global variables: $with_bija_pf
-    if ($with_bija_pf) {
-        $YugaRotation{'star'}    = $YugaRotation{'star'} + 28;       ###20020331
-        $YugaRotation{'sun'}     = $YugaRotation{'sun'};
-        $YugaRotation{'moon'}    = $YugaRotation{'moon'};
-        $YugaRotation{'mercury'} = $YugaRotation{'mercury'} + 60;    ###20020331
-        $YugaRotation{'venus'}   = $YugaRotation{'venus'} - 12;      ###20010328
-        $YugaRotation{'mars'}    = $YugaRotation{'mars'} + 8;        ###20010328
-        $YugaRotation{'jupiter'} = $YugaRotation{'jupiter'};         ###20010328
-        $YugaRotation{'saturn'}  = $YugaRotation{'saturn'} + 4;      ###20010328
-        $YugaRotation{'Candrocca'} = $YugaRotation{'Candrocca'} - 16; ###20010328
-        $YugaRotation{'Rahu'} = $YugaRotation{'Rahu'} - 12;          ###20010328
+# 20140315
+sub set_primary_constant_InPancasiddhantika {# Latadeva/Ardharatrika, HIL, p.15
+    $YugaRotation{'star'}       = 1582237800;
+    $YugaRotation{'sun'}        = 4320000;
+    $YugaRotation{'moon'}       = 57753336;
+    $YugaRotation{'mercury'}    = 17937000;
+    $YugaRotation{'venus'}      = 7022388;
+    $YugaRotation{'mars'}       = 2296824;
+    $YugaRotation{'jupiter'}    = 364220;
+    $YugaRotation{'saturn'}     = 146564;
+    $YugaRotation{'Candrocca'}  = 488219;
+    $YugaRotation{'Rahu'}       = -232226;
+}
+
+# 20140315
+sub set_primary_constant {
+    if ($SelectedSystem eq 'SuryaSiddhanta') {
+      &set_primary_constant_SuryaSiddhanta;
+    } elsif ($SelectedSystem eq 'InPancasiddhantika') {
+      &set_primary_constant_InPancasiddhantika;
+    } else {
+      &set_primary_constant_SuryaSiddhanta;
     }
 }
+
+#sub add_bija {
+#    # celestial.applyBija - HP
+#    # global variables: $with_bija_pf
+#    if ($with_bija_pf) {
+#        $YugaRotation{'star'}    = $YugaRotation{'star'} + 28;       ###20020331
+#        $YugaRotation{'sun'}     = $YugaRotation{'sun'};
+#        $YugaRotation{'moon'}    = $YugaRotation{'moon'};
+#        $YugaRotation{'mercury'} = $YugaRotation{'mercury'} + 60;    ###20020331
+#        $YugaRotation{'venus'}   = $YugaRotation{'venus'} - 12;      ###20010328
+#        $YugaRotation{'mars'}    = $YugaRotation{'mars'} + 8;        ###20010328
+#        $YugaRotation{'jupiter'} = $YugaRotation{'jupiter'};         ###20010328
+#        $YugaRotation{'saturn'}  = $YugaRotation{'saturn'} + 4;      ###20010328
+#        $YugaRotation{'Candrocca'} = $YugaRotation{'Candrocca'} - 16; ###20010328
+#        $YugaRotation{'Rahu'} = $YugaRotation{'Rahu'} - 12;          ###20010328
+#    }
+#}
 
 sub set_secondary_constant {
     # celestial.setSecondaryConstants - HP
@@ -1136,7 +1190,7 @@ sub get_mean_long {
   #                    ($rotation * &frac($ahar) / $YugaCivilDays))
   #    --> 360 * &frac(&frac($rotation * int($ahar) / $YugaCivilDays) +
   #                    &frac($rotation * &frac($ahar) / $YugaCivilDays))
-  # ok! difference from original is 1/100000000 degree.
+  # ok! difference from original is 1/100,000,000 degree.
 
     #    --> 360 * &frac(&frac(($rotation * int($ahar) % $YugaCivilDays) /
     #                          $YugaCivilDays) +
@@ -1153,7 +1207,7 @@ sub get_mean_long {
   #                 (360 * $rotation * &frac($ahar) / $YugaCivilDays))
   #    --> &zero360(&zero360((360 * $rotation * int($ahar) / $YugaCivilDays)) +
   #                 &zero360((360 * $rotation * &frac($ahar) / $YugaCivilDays)))
-  # ok! difference from original is 1/10000000000 degree.
+  # ok! difference from original is 1/10,000,000,000 degree.
 }
 
 sub declination {
@@ -1578,8 +1632,10 @@ sub set_samkranti {    ###20010311
     #    } else { #20020308
     $samkranti = &find_samkranti( $ahar, $ahar + 1 );    #20010311
     $samkranti = $samkranti + $desantara;                #20011114
-    ( $samkranti_year, $samkranti_month, $samkranti_day ) =
-      &JulianDay_to_ModernDate( &Ahargana_to_JulianDay($samkranti) );  #20010310
+#    ( $samkranti_year, $samkranti_month, $samkranti_day ) =
+#      &JulianDay_to_ModernDate( &Ahargana_to_JulianDay($samkranti) );  #20010310
+    ($samkranti_year, $samkranti_month, $samkranti_day) =
+      &JulianDay_to_ModernDate(&Ahargana_to_JulianDay(&trunc($samkranti) + 0.5)); #20140223 cf. try_calculations
     $samkranti_hour = &trunc( &frac($samkranti) * 24 );                #20010310
     $samkranti_min  = &trunc( 60 * &frac( &frac($samkranti) * 24 ) );  #20010310
 
@@ -1642,7 +1698,7 @@ sub calculations {
     # calculations.fromGregorian - HP
 
     &set_primary_constant;
-    &add_bija;
+#    &add_bija;
     &set_secondary_constant;
     &set_planetary_constant;
     $JulianDay    = &ModernDate_to_JulianDay( $year, $month, $day );
@@ -1733,7 +1789,7 @@ sub planetary_calculations {
 
 sub try_calculations {
     &set_primary_constant;
-    &add_bija;
+#    &add_bija;
     &set_secondary_constant;
     &set_planetary_constant;
     $masa = &get_masa_name($masa_num);
@@ -1754,7 +1810,7 @@ sub horoscope_calculation {
     my ( $saslong, $sdecl, $srasc, $time_degree, $hrasc, $ascend );
 
     &set_primary_constant;
-    &add_bija;
+#    &add_bija;
     &set_secondary_constant;
     &set_planetary_constant;
     $JulianDay = &ModernDate_to_JulianDay( $year, $month, $day );
@@ -1786,7 +1842,7 @@ sub tithi_naksatra_karana_yoga_at_any_given_ahar {          ###20011106
     my ( $tithi_day, $ftithi, $naksatra, $karana, $yoga );
 
     &set_primary_constant;
-    &add_bija;
+#    &add_bija;
     &set_secondary_constant;
     &set_planetary_constant;
 
@@ -1876,63 +1932,42 @@ sub wechseln_calc_write {    ###20011109
 #{:::::::::::::::::::::::::::}
 # { OUTPUT }
 
-sub write_opening_message {
-    print
-      "   ********* Pancanga vers.3.13 **********   M. YANO and M. FUSHIMI \n";
-    print
-"   ----------------- perl version ------------- February 2004            \n";
-    print
-      "       This program is based on the Suryasiddhanta.   The constants \n";
-    print
-      "   of the text were modified  around AD 1000 by the elements called \n";
-    print
-      "   bija. You can choose with or without bija by entering <B> in <S>.\n";
-    print
-      "   <MENUES>                                                         \n";
-    print
-      "   <T>:   To find the modern date from the given Indian date.   The \n";
-    print
-      "       result is not always correct.  (Sometimes error is one month \n";
-    print
-      "       because of adhimasa.) You should confirm it by menu <L>.     \n";
-    print
-      "   <L>:   To find the Indian date (in amanta) from the given modern \n";
-    print
-      "       date.  The result is considerably reliable:  the month names \n";
-    print
-      "       are almost always correct;only the error of 1 tithi is to be \n";
-    print
-      "       admitted because of occurrence of ksayadina or adhidina.     \n";
-    print
-      "   <V>:   To get the further details of <L>.                        \n";
-
-# print "   <H>:   To get horoscope (at present only lagna).                 \n"; #20010416
-    print
-      "   <S>:   To set local <L>atitude, l<O>ngitude, <B>ija.             \n"
-      ;    #20020304
-    print
-      "   NOTICE ... Remember the difference of amanta and purnimanta.     \n";
-    print
-      "              Beginning of the year is set for Caitra sukla 1.      \n";
-    print
-      "   ***** This program should not be copied without our permission.  \n";
-    print
-      "     Please contact:                                                \n";
-    print
-      "         M.YANO (for Indian astronomy): yanom\@cc.kyoto-su.ac.jp    \n";
-    print
-      "         M.FUSHIMI (for programming): fushimi\@fas.harvard.edu      \n";
+sub write_opening_message{
+print "   ********* Pancanga vers.3.14  **********   M. YANO and M. FUSHIMI \n";#20140315
+#print "   ----------------- perl version ------------- March 2002          \n";
+print "   ----------------- perl version ------------- March 2014          \n";
+# 20140315
+print "       This program is based on the Suuryasiddhaanta (ca AD 1000), \n";
+print "   and also on the older constants of the Pancasiddhaantikaa (AD 505).        \n";
+print "   <MENUES>                                                         \n";
+print "   <T>:   To find the modern date from the given Indian date.   The \n";
+print "       result is not always correct.  (Sometimes error is one month \n";
+print "       because of adhimaasa.) You should confirm it by menu <L>.     \n";
+print "   <L>:   To find the Indian date (in amaanta) from the given modern \n";
+print "       date.  The result is considerably reliable:  the month names \n";
+print "       are almost always correct; only the error of 1 tithi is to be \n";
+print "       admitted because of occurrence of KSayadina or adhidina.     \n";
+print "   <V>:   To get the further details of <L>.                        \n";
+# print "   <H>:   To get horoscope (at present only lagna). \n"; #20010416
+# print "   <S>:   To set local <L>atitude, l<O>ngitude, <B>ija. \n"; #20020304
+print "   <S>:   To set local <L>atitude, l<O>ngitude, and <C>hange System. \n"; #20140315
+print "   NOTICE ... Remember the difference of amaanta and puurNimaanta.     \n";
+print "              Beginning of the year is set for Caitra sukla 1.      \n";
+print "   ***** This program should not be copied without our permission.  \n";
+print "     Please contact:                                                \n";
+print "         M.YANO (for Indian astronomy): yanom at cc.kyoto-su.ac.jp \n"; #20140315
+print "         M.FUSHIMI (for programming) at makoto.fushimi at nifty.com \n"; #20140315
 }
 
-sub write_settings {
+# 20140315
+sub write_settings{
 
-    print " Local latitude is set to $loc_lat.\n";
-    print " Local longitude is set to $loc_lon.\n";    #20020304
-    if ($with_bija_pf) {
-        print " With bija.\n";
-    }
-    else {
-        print " Without bija.\n";
+    print " Current settings. Lat: $loc_lat. ";
+    print "Long: $loc_lon. ";
+    if ($SelectedSystem eq 'SuryaSiddhanta') { #20140315
+      print " Suryasiddhanta (AD 1000ca).\n";
+    } else {
+      print " Older constants in PS (AD 505).\n";
     }
 }
 
@@ -1950,6 +1985,32 @@ sub write_sig_deg_min_sec {
     $remain  = 60 * $remain - $min;
     $sec     = &round( 60 * $remain );
     printf "%3ss%3sd%3s'%3s%s", $sig, $deg, $min, $sec, pack( "C", 34 );
+}
+
+# 20140315
+sub write_sig_deg {
+    my($decimal) = @_;
+
+    my($sig, $deg, $min, $sec, $remain);
+
+    $decimal = &zero360($decimal);
+    $sig = &trunc($decimal / 30);
+      $remain = $decimal - $sig * 30;
+    $deg = &trunc($remain);
+      $remain = $remain - $deg;
+    $min = &trunc(60 * $remain);
+      $remain = 60 * $remain - $min;
+    $sec = &round(60 * $remain);
+    printf "%3ss%3sd", $sig, $deg;
+}
+
+sub write_nirayana_longitude_sun_moon {
+
+    printf "Sun: ";
+    &write_sig_deg($PlanetTruePosition{'sun'});
+    printf ", ";
+    printf " Moon: ";
+    &write_sig_deg($PlanetTruePosition{'moon'});
 }
 
 sub write_nirayana_longitude {
@@ -2017,59 +2078,56 @@ sub write_list {
     }
 }
 
-sub write_table {
-    printf "  AD%5s %2s %3s %4s ", $year, $month, $day,
-      $weekday_name;    ###20010325
-    printf "| JD (at noon)=%8s ",    $JulianDay;    ###20010412
-    printf "| Kali-ahargana=%8s \n", $ahargana;     ###20010412
-    if ( &Julian_in_England_p($JulianDay) ) {       ###20030331
-        printf "  (=%5s %2s %3s in Julian) ",
-          &JulianDay_to_JulianDate($JulianDay);
-        printf "===================================================\n";
-    }
-    else {
-        printf
-"===============================================================================\n";
-    }
-
-    #    printf "  Pancanga based on the Suryasiddhanta (at sunrise)";
-    printf "  Pancanga based on Suryasiddhanta (sunrise)";    #20020304
-    printf " at latitude=%3s,", $loc_lat;                     #20020304
-    printf " longitude=%3s\n",  $loc_lon;                     #20020304
-    printf
-"-------------------------------------------------------------------------------\n";
-
+sub write_table{
+    printf "  AD%5s %2s %3s %4s ", $year, $month, $day, $weekday_name;###20010325
+    printf "| JD (at noon)=%8s ", $JulianDay; ###20010412
+    printf "| Kali-ahargana=%8s \n", $ahargana; ###20010412
+  if (&Julian_in_England_p($JulianDay)) {###20030331
+    printf "  (=%5s %2s %3s in Julian) ", &JulianDay_to_JulianDate($JulianDay);
+    printf "===================================================\n";
+  }else{
+    printf "===============================================================================\n";
+  };
+# 20140315
+#    printf "  Pancanga based on the Suryasiddhanta (at sunrise)";
+#    printf "  Pancanga based on Suryasiddhanta (sunrise)";  #20020304
+if ($SelectedSystem eq 'SuryaSiddhanta') { #20140315
+    printf "  Pancanga based on Suryasiddhanta (AD 1000 ca) \n";
+} elsif ($SelectedSystem eq 'InPancasiddhantika') {
+    printf "  Pancanga based on older constants in Pancasiddhantika (AD 505) \n";
+} else {
+    printf "  Pancanga based on Suryasiddhanta (AD 1000 ca) \n";
+}
+    printf "    at latitude=%3s,", $loc_lat; #20020304
+    printf " longitude=%3s\n", $loc_lon; #20020304
+    printf "-------------------------------------------------------------------------------\n";
+# 20140315
 #    printf "      Nirayana  Mean Longitude     True Longitude    |  Month Names\n";###20000613
-    printf
-"      Nirayana  True Longitude   |  Lunar Month Names      |  Solar Month Names\n";
-    &write_nirayana_longitude;
-    printf
-"-------------------------------------------------------------------------------\n";
-    printf
-" Indian date (luni-solar year and amanta month)  (*) local sunrise...%2sh %2sm\n",
-      $sriseh, $srisem;                                       ###20010313
-    printf " year(atita):Saka %4s",    $YearSaka;
-    printf " |Vikrama %4s",            $YearVikrama;
-    printf " |Kali %4s",               $YearKali;               ###20010313
-    printf " | ayanamsa: %2sd %2sm\n", $ayanadeg, $ayanamin;    ###20010313
-    printf "             Jovian(North):%s",
-      &get_Jovian_Year_name($YearKali);                         ###20001231
-    printf " |Jovian(South):%s\n",
-      &get_Jovian_Year_name_south($YearKali);                   ###20001231
-    printf " lunar month, paksa, and tithi(at sunrise): \n";    ###20010313
-    printf "       %s%s", $adhimasa, $masa;                     ###20001231
-    printf " %s",                      $sukla_krsna;            ###20000522
-    printf " %2s (fraction = 0.%s)\n", $tithi_day,
-      substr( 1 + $ftithi, 2, 3 );                              ###20011107
-    printf " solar month and day: %s", $saura_masa;             ###20010313
-    printf " %s",                      $saura_masa_day;         ###20010310
-    printf " (samkranti: on %4s %2s %2s", $samkranti_year, $samkranti_month,
-      $samkranti_day;                                           ###20010311
+#    printf "      Nirayana  True Longitude   |  Lunar Month Names      |  Solar Month Names\n";
+#    &write_nirayana_longitude;
+#    printf "-------------------------------------------------------------------------------\n";
+    printf " Indian date (luni-solar year and amanta month)  (*) local sunrise...%2sh %2sm\n", $sriseh, $srisem; ###20010313
+# 20140315
+    printf "   (Nirayana True Longitude at sunrise. ";
+    &write_nirayana_longitude_sun_moon;
+    printf ")\n";
+    printf " year(atita):Saka %4s", $YearSaka;
+    printf " |Vikrama %4s", $YearVikrama;
+    printf " |Kali %4s",    $YearKali; ###20010313
+    printf " | ayanamsa: %2sd %2sm\n", $ayanadeg, $ayanamin; ###20010313
+    printf "             Jovian(North):%s", &get_Jovian_Year_name($YearKali); ###20001231
+    printf " |Jovian(South):%s\n", &get_Jovian_Year_name_south($YearKali); ###20001231
+    printf " lunar month, paksa, and tithi(at sunrise): \n"; ###20010313
+    printf "       %s%s", $adhimasa, $masa; ###20001231
+    printf " %s", $sukla_krsna; ###20000522
+    printf " %2s (fraction = 0.%s)\n", $tithi_day, substr(1+$ftithi, 2, 3); ###20011107
+    printf " solar month and day: %s", $saura_masa; ###20010313
+    printf " %s", $saura_masa_day; ###20010310
+    printf " (samkranti: on %4s %2s %2s", $samkranti_year, $samkranti_month, $samkranti_day; ###20010311
     printf " at %2sh %2sm)\n", $samkranti_hour, $samkranti_min; ###20010310
     printf " naksatra.... %s", $naksatra;
     printf "  /  karana...%s", &get_karana_name($tithi);
-    printf "  /  yoga...%s\n", &get_yoga_name( $tslong, $tllong );
-
+    printf "  /  yoga...%s\n", &get_yoga_name($tslong, $tllong);
 #   printf " (Jovian year, karana, and yoga are in the Kyoto-Harvard transliteration system)\n";###20010412
 #    printf "    NOTICE: if PURNIMANTA K-paksa month names appear a month earlier\n";
 #    printf "===============================================================================\n"; #20010416
@@ -2121,7 +2179,9 @@ my $prog_mode_message_cont =
 #              "<Return>:continue, <T>ry, <L>ist, <V>erbose, <H>oroscope, <S>etting, <E>nd: "; #20010416
   "<Return>:continue, <T>ry, <L>ist, <V>erbose, <S>etting, <E>nd: ";
 my $prog_setting_mode_message =
-  "<L>atitude, l<O>ngitude, <B>ija, <E>xit from Setting: ";    #20020304
+# 20140315
+# "<L>atitude, l<O>ngitude, <B>ija, <E>xit from Setting: ";  #20020304
+  "<L>atitude, l<O>ngitude, <C>hange System, <E>xit from Setting: ";  #20020304
 
 # type  prog_modes =
 # (continue, try, list, verbose, wechseln, horoscope, setting, latitude, longitude, bija, prog_end); #20020304
@@ -2172,8 +2232,11 @@ sub set_prog_setting_mode {
     elsif ( $ans eq 'O' ) {
         $prog_mode = 'longitude';    #20011114
     }
-    elsif ( $ans eq 'B' ) {
-        $prog_mode = 'bija';
+# 20140315
+#    } elsif ($ans eq 'B') {
+#         $prog_mode = 'bija';
+    elsif ($ans eq 'C') {
+         $prog_mode = 'changeSystem';
     }
     elsif ( $ans eq 'E' ) {
         $prog_mode = 'prog_end';
@@ -2197,7 +2260,7 @@ if ( $pancanga_as_sub ) {
 }
 else {
     &write_opening_message;
-    print "If there is no need to change default settings, type E.";
+    print "If there is no need to change default settings, type E.\n"; # 20140315
     $prog_mode = 'setting';
     while ( $prog_mode ne 'prog_end' ) {
         if ( $prog_mode eq 'continue' ) {
@@ -2271,7 +2334,8 @@ else {
             }
         }
         elsif ( $prog_mode eq 'setting' ) {
-            print "\n";
+#            print "\n"; #20140315
+            &write_settings; #20140315
             &set_prog_setting_mode($prog_setting_mode_message);
             while ( $prog_mode ne 'prog_end' ) {
                 if ( $prog_mode eq 'continue' ) {
@@ -2295,19 +2359,26 @@ else {
                     printf "\n";
                     &set_prog_setting_mode($prog_setting_mode_message);
                 }
-                elsif ( $prog_mode eq 'bija' ) {
-                    if ($with_bija_pf) {
-                        $with_bija_pf = $false;
-                        print " Without bija.\n";
-                    }
-                    else {
-                        $with_bija_pf = $true;
-                        print " With bija.\n";
-                    }
-                    &set_prog_setting_mode($prog_setting_mode_message);
+#                } elsif ($prog_mode eq 'bija') {
+#                   if ($with_bija_pf) {
+#                       $with_bija_pf = $false;
+#                       print " Without bija.\n";
+#                   } else {
+#                       $with_bija_pf = $true;
+#                       print " With bija.\n";
+#                   }
+               elsif ($prog_mode eq 'changeSystem') {
+                  if ($SelectedSystem eq 'SuryaSiddhanta') { #20140315
+                      $SelectedSystem = 'InPancasiddhantika';
+                      print " Calculations are based on older constants in Pancasiddhantika (AD 505).\n";
+                  } else {
+                      $SelectedSystem = 'SuryaSiddhanta';
+                      print " Calculations are based on SuryaSiddhanta (AD 1000ca).\n";
+                  }
+                  &set_prog_setting_mode($prog_setting_mode_message);
                 }
             }
-            print "\n";
+#            print "\n";#20140315
             &write_settings;
             &cache_variable_clear;
             &set_prog_mode($prog_mode_message);

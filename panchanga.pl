@@ -18,7 +18,7 @@ my $false = 0;
 
 my $variabledeclaration = $true;
 
-my $pancanga_as_sub = $false;
+my $pancanga_as_sub = $true;
 
 sub numeric_p {
     # Checks whether argument isNumeric - math.isNumber - HP
@@ -875,7 +875,7 @@ sub get_saura_masa_name {    ###20000613
     4, 'Chingam   ', 5, 'Kanni     ', 6,  'Thulam    ', 7,  'Vrischikam',
     8, 'Dhanu     ', 9, 'Makaram   ', 10, 'Kumbham   ', 11, 'Meenam    '
     );
-    
+
     $saura_masa_name{$number};
 }
 
@@ -970,7 +970,7 @@ sub get_naksatra_name {
 #    24, 'P-bhadrapada', 25, 'U-bhadrapada', 26, 'Revati',
 #    27, 'Asvini'
 #    );
-#    
+#
     # For use with Kollavarsham - HP
     my %naksatra_name = (
     0,  'Ashwathi',     1,  'Bharani',      2,  'Karthika',
@@ -984,7 +984,7 @@ sub get_naksatra_name {
     24, 'Poororuttathi',25, 'Uthratathi',   26, 'Revathi',
     27, 'Ashwathi'
     );
-    
+
     $naksatra_name{ &trunc( $tllong * 27 / 360 ) };
 }
 
@@ -1048,6 +1048,7 @@ sub get_Jovian_Year_name_south {
 
 # 20140315
 sub set_primary_constant_SuryaSiddhanta {# Saura, HIL, p.15
+    # celestial.setPrimaryConstantsSuryaSiddhanta
     $YugaRotation{'star'}       = 1582237828;
     $YugaRotation{'sun'}        = 4320000;
     $YugaRotation{'moon'}       = 57753336;
@@ -1062,6 +1063,7 @@ sub set_primary_constant_SuryaSiddhanta {# Saura, HIL, p.15
 
 # 20140315
 sub set_primary_constant_InPancasiddhantika {# Latadeva/Ardharatrika, HIL, p.15
+    # celestial.setPrimaryConstantsInPancasiddhantika
     $YugaRotation{'star'}       = 1582237800;
     $YugaRotation{'sun'}        = 4320000;
     $YugaRotation{'moon'}       = 57753336;
@@ -1076,6 +1078,7 @@ sub set_primary_constant_InPancasiddhantika {# Latadeva/Ardharatrika, HIL, p.15
 
 # 20140315
 sub set_primary_constant {
+    # celestial.setPrimaryConstants
     if ($SelectedSystem eq 'SuryaSiddhanta') {
       &set_primary_constant_SuryaSiddhanta;
     } elsif ($SelectedSystem eq 'InPancasiddhantika') {
@@ -1213,7 +1216,7 @@ sub get_mean_long {
 sub declination {
     # celestial.declination - HP
     my ($long) = @_;
-    
+
     &arcsin( sin( $long / $rad ) * sin( 24 / $rad ) ) * $rad;
 }
 

@@ -107,7 +107,7 @@ my $epsiron = 1e-8;
 # { settings }
 
 #my $with_bija_pf  = $true;     #20140315
-my $SelectedSystem  = 'SuryaSiddhanta';     #20140315
+our $SelectedSystem  = 'SuryaSiddhanta';     #20140315
 # 'InPancasiddhantika'
 
 #    $loc_lat       = 28.6;          # {Delhi}#20011114

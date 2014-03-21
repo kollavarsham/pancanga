@@ -4,6 +4,7 @@ use warnings;
 
 require('panchanga.pl');
 
+our $SelectedSystem = 'InPancasiddhantika';
 &set_primary_constant;
 &set_secondary_constant;
 &set_planetary_constant;
